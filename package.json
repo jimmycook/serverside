@@ -1,0 +1,14 @@
+{
+  "dependencies": {
+    "bootstrap": "^3.3.6",
+    "jquery": "^2.2.0",
+    "laravel-elixir": "^4.2.0",
+    "laravel-elixir-vueify": "^1.0.2",
+    "moment": "^2.11.1",    
+    "vue": "^1.0.15"
+  },
+  "devDependencies": {
+    "babel": "^6.3.26",
+    "gulp": "^3.9.0"
+  }
+}
