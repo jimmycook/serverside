@@ -1,7 +1,5 @@
 <?php
 
-use Framework\Routing\Router;
-
-Router::get('hello', function() {
-	return 'hello the router works';
+$router->any('/', function () {
+	return 'hello world';
 });

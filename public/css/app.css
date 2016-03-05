@@ -6657,7 +6657,107 @@ button.close {
   }
 }
 body {
-  background-color: #eee;
+  font-family: "Source Sans Pro";
+  background-color: #e5e5e5;
+}
+.panel {
+  padding-right: 10px;
+  padding-left: 10px;
+}
+.Navbar {
+  margin-bottom: 1em;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  height: 60px;
+  background-color: #040d36;
+  color: #E5E5E5;
+}
+.Footer {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  height: 100px;
+  background-color: #02071e;
+  color: #E5E5E5;
+}
+.Footer__items {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  list-style-type: none;
+  font-size: 16px;
+  margin: 20px;
+}
+.Footer__item {
+  margin: 10px;
+}
+.Logo {
+  margin: 0 0 0 20px;
+  font-size: 20px;
+}
+.Menu {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+}
+.Menu__items {
+  margin: 0 20px 0 0;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  list-style-type: none;
+  font-size: 16px;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+}
+.Menu__item {
+  margin: 0.5em;
+  color: #e5e5e5;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+  text-align: center;
+}
+.Menu__item a {
+  text-decoration: none;
+  color: #e5e5e5;
+}
+.Menu__item a:active,
+.Menu__item a:hover {
+  color: #aaa;
+}
+img {
+  height: auto;
+  width: 100%;
 }
 
 /*# sourceMappingURL=app.css.map */

@@ -12,6 +12,8 @@
             "App\\": "app/",
             "Framework\\": "framework/"
         }
+    },
+    "require": {
+        "phroute/phroute": "^2.1"
     }
-   
 }
