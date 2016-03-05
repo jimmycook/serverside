@@ -14,26 +14,29 @@ class Renderer
      *
      * @param string $templatePath
      */
-    public function __construct($templatePath = "templates/")
+    public function __construct($templatePath = "/templates/")
     {
         $this->templatePath = $templatePath;
     }
 
     /**
      * Render the template
-     * @param  \App\Response $reponse
      * @param  string $templateName
      * @param  array $args
      *
      * @return  \App\Response $response
      */
-    public function render(Response $response, $templateName, $args = [])
+    public function render($templateName, $args = [])
     {
 
+        $templateFullPath = __DIR__ . $this->templatePath . $templateName . '.php';
+
         ob_start();
+
         extract($args);
-        include($this->$templatePath . $templateName . '.php');
-        $response->writeBody(ob_get_clean());
+
+        require($templateFullPath);
+        $response = ob_get_clean();
         return $response;
     }
 

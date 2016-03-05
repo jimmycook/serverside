@@ -12,13 +12,13 @@
             <li class="Menu__item">
                 <a href="/create">
                     Create listing
-                </a>                
-            </li>   
+                </a>
+            </li>
             <li class="Menu__item">
                 <a href="/account">
                     Your Account
-                </a>                
-            </li>              
+                </a>
+            </li>
         </ul>
     </div>
 

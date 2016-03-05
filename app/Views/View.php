@@ -8,16 +8,13 @@ namespace App\Views;
 class View
 {
 
-    protected $renderer;
 
-    public function __construct()
+    public static function render($templateName, $args = [])
     {
-        $this->renderer = new Renderer(getenv('TEMPLATE_PATH'));
-    }
+        // Get the renderer
+        $renderer = new Renderer();
 
-    public function render($template, $args)
-    {
-        $this->renderer->render($template, $args);
+        return $renderer->render($templateName, $args);
     }
 
 }

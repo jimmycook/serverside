@@ -11,32 +11,7 @@
 
     </head>
     <body>
-        <nav class="Navbar">
-            <div class="Logo">
-                <span class="Logo__text">Guitar Trader</span>
-            </div>
-            <div class="Menu">
-                <ul class="Menu__items">
-                    <li class="Menu__item">
-                        <a href="/categories">
-                            Categories
-                        </a>
-                    </li>
-                    <li class="Menu__item">
-                        <a href="/create">
-                            Create listing
-                        </a>
-                    </li>
-                    <li class="Menu__item">
-                        <a href="/account">
-                            Your Account
-                        </a>
-                    </li>
-                </ul>
-            </div>
-
-        </nav>
-
+        <?php include(__DIR__ . '/partials/navbar.php') ?>
         <div class="container">
             <div class="panel ">
                 <h3>Recent Listings</h3>
@@ -84,11 +59,7 @@
                 </div>
             </div>
         </div>
-        <footer class="Footer">
-            <ul class="Footer__items">
-                <li class="Footer__item">&#169; Jimmy Cook, <?php echo date('Y')?></li>
-            </ul>
-        </footer>
+        <?php include(__DIR__ . '/partials/footer.php') ?>
         <script type="text/javascript" src="/js/main.js"></script>
     </body>
 </html>

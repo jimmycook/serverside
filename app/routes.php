@@ -1,5 +1,9 @@
 <?php
 
-$router->any('/', function () {
-	return 'hello world';
+use App\Views\View;
+
+$router->controller('/', 'App\\Controllers\\PagesController');
+
+$router->any('prototype', function () {
+	return View::render('prototype');
 });
