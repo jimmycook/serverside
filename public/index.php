@@ -11,5 +11,6 @@ $app = new App\Kernel\App();
 try {
     $app->boot();
 } catch (Exception $e) {
+    // Route wasn't found so call the not found
     $app->notFound();
 }

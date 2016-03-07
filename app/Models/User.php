@@ -6,5 +6,5 @@ use App\Database\Database;
 
 class User
 {
-
+    
 }
