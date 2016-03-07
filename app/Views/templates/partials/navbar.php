@@ -1,6 +1,8 @@
 <nav class="Navbar">
     <div class="Logo">
-        <span class="Logo__text">Guitar Trader</span>
+        <span class="Logo__text">
+            <a href="/">Guitar Trader</a>
+        </span>
     </div>
     <div class="Menu">
         <ul class="Menu__items">

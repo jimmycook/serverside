@@ -6705,11 +6705,21 @@ body {
   margin: 20px;
 }
 .Footer__item {
+  pointer-events: none;
   margin: 10px;
 }
 .Logo {
   margin: 0 0 0 20px;
   font-size: 20px;
+}
+.Logo__text a {
+  color: #eee;
+  text-decoration: none;
+}
+.Logo__text a:hover,
+.Logo__text a:active {
+  color: #eee;
+  text-decoration: none;
 }
 .Menu {
   display: -webkit-flex;
@@ -6758,6 +6768,10 @@ body {
 img {
   height: auto;
   width: 100%;
+}
+.not-found {
+  margin-top: 75px;
+  margin-bottom: 75px;
 }
 
 /*# sourceMappingURL=app.css.map */

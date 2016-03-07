@@ -6,17 +6,9 @@ namespace App\Database;
 class DatabaseConnection
 {
 
-    protected $username;
-
-    protected $username;
-
-    protected $username;
-
     public function __construct()
     {
-        $this->username = getenv('MYSQL_USER');
-        $this->password = getenv('MYSQL_PASSWORD');
-        $this->database = getenv('MYSQL_DATABASE');
-
+        $config = require __DIR__ . '/../../database/config.php';
+        
     }
 }

@@ -7,8 +7,6 @@ namespace App\Views;
 */
 class View
 {
-
-
     public static function render($templateName, $args = [])
     {
         // Get the renderer

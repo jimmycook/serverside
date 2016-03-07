@@ -8,5 +8,8 @@ require __DIR__.'/../app/Helpers/helpers.php';
 // Start the app
 $app = new App\Kernel\App();
 
-// Boot the application
-$app->boot();
+try {
+    $app->boot();
+} catch (Exception $e) {
+    $app->notFound();
+}
