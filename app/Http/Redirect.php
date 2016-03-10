@@ -1,26 +1,26 @@
 <?php
 
-namespace App\Kernel;
-
-use App\Views\View;
+namespace App\Http;
 use Phroute\Phroute\RouteCollector;
 use Phroute\Phroute\Dispatcher;
 
-class App
+class Redirect
 {
 
     private $requestMethod;
-    private $url;
 
     public function __construct()
     {
         $this->requestMethod = $_SERVER['REQUEST_METHOD'];
-        $this->url = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
     }
 
-    public function boot()
+    public function home()
     {
-        session_start();
+
+    }
+
+    public function dispatch($uri)
+    {
         // Get the routecollector
 		$router = new RouteCollector();
 
@@ -30,20 +30,13 @@ class App
 		// Require the routes
 		require(__DIR__ . '/../routes.php');
 
+        $url = parse_url($uri, PHP_URL_PATH);
+
 		// Run the dispatcher
         $dispatcher = new Dispatcher($router->getData());
-		$response = $dispatcher->dispatch($this->requestMethod, $this->url);
+		$response = $dispatcher->dispatch($this->requestMethod, $url);
         echo $response;
-
+        die();
     }
 
-    /**
-     * [notFound description]
-     * @return [type] [description]
-     */
-    public function notFound()
-    {
-        header($_SERVER["SERVER_PROTOCOL"] . " 404 Not Found");
-        echo View::render('errors/404');
-    }
 }
