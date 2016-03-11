@@ -1,4 +1,5 @@
 <?php
+// Setup your database connection here
 return [
 	'driver' => 'mysql',
 

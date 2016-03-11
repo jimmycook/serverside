@@ -11,6 +11,7 @@ class App
 
     private $requestMethod;
     private $url;
+    private $router;
 
     public function __construct()
     {
@@ -18,11 +19,12 @@ class App
         $this->url = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
     }
 
-    public function boot()
+    /**
+     * Run the application;
+     */
+    public function boot($router)
     {
         session_start();
-        // Get the routecollector
-		$router = new RouteCollector();
 
         // Require any route filters
         require(__DIR__ . '/../filters.php');
@@ -38,8 +40,8 @@ class App
     }
 
     /**
-     * [notFound description]
-     * @return [type] [description]
+     * Draw the 404 error page
+     * @return void
      */
     public function notFound()
     {
