@@ -2,12 +2,19 @@
 
 namespace App\Services;
 
+use PDO;
+
 class Database
 {
     /**
      * @var Singleton The reference to *Singleton* instance of this class
      */
     private static $instance;
+
+    /**
+     * @var instance of PDO
+     */
+    protected $pdo;
 
     /**
      * Returns the *Singleton* instance of this class.
@@ -35,13 +42,30 @@ class Database
     {
         $config = require __DIR__ . '/../../config/database.php';
 
-        $driver = $config['driver'];
-
-        if($driver == 'mysql')
+        if($config['driver'] == 'mysql')
         {
-            $config
+            $host = $config['mysql']['host'];
+            $username = $config['mysql']['username'];
+            $password = $config['mysql']['password'];
+            $database = $config['mysql']['database'];
+            $dsn = "mysql:host=$host;dbname=$database;";
+            $this->pdo = new PDO($dsn, $username, $password);
+            if($this->pdo instanceof PDO)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
-        mew \PDO("")
+    }
+
+    public function query($query)
+    {
+        $statement = $this->pdo->prepare($query);
+        $statement->execute();
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
 }

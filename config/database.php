@@ -4,9 +4,9 @@ return [
 	'driver' => 'mysql',
 
 	'mysql' => [
-		'connection' => 'localhost',
+		'host' => 'localhost',
 		'username' => 'root',
-		'password' => 'root',
+		'password' => '',
 		'database' => 'serverside',
 	],
 ];

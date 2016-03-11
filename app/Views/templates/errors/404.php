@@ -1,5 +1,5 @@
-<?php include(__DIR__ . '/partials/header.php') ?>
-<?php include(__DIR__ . '/partials/navbar.php') ?>
+<?php include(__DIR__ . '/../partials/header.php') ?>
+<?php include(__DIR__ . '/../partials/navbar.php') ?>
 
 <div class="container not-found">
     <div class="panel">
@@ -13,4 +13,4 @@
     </div>
 </div>
 
-<?php include(__DIR__ . '/partials/footer.php') ?>
+<?php include(__DIR__ . '/../partials/footer.php') ?>

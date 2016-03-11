@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Kernel;
+namespace App\Services;
 
 use App\Views\View;
 use Phroute\Phroute\RouteCollector;

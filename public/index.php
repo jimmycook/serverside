@@ -6,7 +6,7 @@ require __DIR__ . '/../vendor/autoload.php';
 require __DIR__ . '/../app/Helpers/helpers.php';
 
 // Start the app
-$app = new App\Kernel\App();
+$app = new App\Services\App();
 
 try {
     $router = new Phroute\Phroute\RouteCollector;

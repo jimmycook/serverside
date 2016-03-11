@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Auth;
+namespace App\Services;
 
 class Auth
 {
-    
+
     public function login($username, $password)
     {
 
