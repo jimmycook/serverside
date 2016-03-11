@@ -9,8 +9,8 @@ $router->controller('/', 'App\\Controllers\\PagesController');
 $router->get('test', function() {
 
 	$database = Database::getInstance();
-	$database->query('INSERT INTO users VALUES (1)');
-	$users = $database->query('SELECT * FROM users');
+
+	$users = $database->query('SELECT * FROM users WHERE id = 123');
 
 	dd($users);
 });

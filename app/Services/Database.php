@@ -61,9 +61,18 @@ class Database
         }
     }
 
-    public function query($query)
+    public function query($query, $params = [])
     {
         $statement = $this->pdo->prepare($query);
+
+        if (count($params))
+        {
+            foreach ($params as $key => $param)
+            {
+                $statement->bindParam($key, $param['value'], $param['type']);
+            }
+        }
+
         $statement->execute();
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
