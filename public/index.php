@@ -3,7 +3,7 @@
 require __DIR__ . '/../vendor/autoload.php';
 
 // Set the envirionment variables
-require __DIR__ . '/../app/Helpers/helpers.php';
+require __DIR__ . '/../app/helpers.php';
 
 // Start the app
 $app = new App\Services\App();

@@ -2,23 +2,17 @@
 
 use App\Views\View;
 use App\Services\Database;
-
+use App\Models\User;
 
 $router->controller('/', 'App\\Controllers\\PagesController');
 
-$router->get('test', function() {
+$router->controller('account', 'App\\Controllers\\AccountController', ['before' => 'check']);
 
-	$database = Database::getInstance();
+$router->controller('sell', 'App\\Controllers\\AccountController', ['before' => 'checkSeller']);
 
-	$users = $database->query('SELECT * FROM users WHERE id = 123');
+$router->any('test', function () {
+
+	$users = User::getByUsername('jimmy');
 
 	dd($users);
-});
-
-$router->any('create', function() {
-	return View::render('createListing');
-}, ['before' => 'check']);
-
-$router->any('prototype', function () {
-	return View::render('prototype');
 });

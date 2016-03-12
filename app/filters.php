@@ -6,6 +6,6 @@ $router->filter('check', function() {
     // $auth = new Auth;
 });
 
-$router->filter('sellerCheck', function() {
+$router->filter('checkSeller', function() {
 
 });
