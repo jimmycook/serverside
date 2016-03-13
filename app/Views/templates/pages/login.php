@@ -1,6 +1,32 @@
 <?php include(__DIR__ . '/../partials/header.php') ?>
 <?php include(__DIR__ . '/../partials/navbar.php') ?>
 
-Login form here
+<div class="row">
+    <div class="col-sm-4 col-sm-offset-4">
+        <div class="panel">
+            <div class="panel-heading">
+                <h2 class="text-center">Login</h2>
+
+                <form class="" action="/login" method="post">
+                    <div class="form-group">
+                        <label>Username</label>
+                        <input type="text" class="form-control"  name="username" placeholder="Username...">
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" class="form-control"  name="password" placeholder="Password...">
+                    </div>
+                    <input class="btn btn-primary btn-lg btn-block" type="submit" name="name" value="Login">
+                </form>
+            </div>
+            <div class="panel-body">
+                <p class="text-center" >
+                    <a href="/register">Need an account?</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <?php include(__DIR__ . '/../partials/footer.php') ?>

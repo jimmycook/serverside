@@ -3,6 +3,8 @@
 namespace App\Controllers;
 
 use App\Views\View;
+use App\Services\Request;
+use App\Services\Auth;
 
 class PagesController
 {
@@ -19,6 +21,13 @@ class PagesController
 
     public function postLogin()
     {
+        $request = new Request();
+
+        $username = $request->post('username');
+        $password = $request->post('password');
+        
+        dd(Auth::login($username, $password));
+
         return 'postLogin';
     }
 

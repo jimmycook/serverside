@@ -1,3 +1,4 @@
 /vendor
 /node_modules
 /database/config.php
+/config/database.php

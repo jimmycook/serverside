@@ -2,6 +2,7 @@
 
 use App\Views\View;
 use App\Services\Database;
+use App\Services\Auth;
 use App\Models\User;
 
 $router->controller('/', 'App\\Controllers\\PagesController');
@@ -12,7 +13,6 @@ $router->controller('sell', 'App\\Controllers\\AccountController', ['before' => 
 
 $router->any('test', function () {
 
-	$users = User::getByUsername('jimmy');
+	Auth::login('jimmy', 'password');
 
-	dd($users);
 });
