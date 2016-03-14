@@ -20,6 +20,7 @@
                 </form>
             </div>
             <div class="panel-body">
+                <?php flashMessage('warning') ?>
                 <p class="text-center" >
                     <a href="/register">Need an account?</a>
                 </p>

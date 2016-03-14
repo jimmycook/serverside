@@ -1,9 +1,12 @@
 <?php
 
-use App\Auth\Auth;
+use App\Services\Auth;
 
 $router->filter('check', function() {
-    // $auth = new Auth;
+    if(!Auth::check())
+    {
+        redirect('login');
+    }
 });
 
 $router->filter('checkSeller', function() {

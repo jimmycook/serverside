@@ -11,34 +11,49 @@ class Auth
     public static function login($username, $password)
     {
         $user = User::getByUsername($username, $password);
-        
         if($user)
         {
             if(Password::check($password, $user['password']))
             {
+                self::setLoggedIn($user);
                 return true;
             }
         }
+
         return false;
 
     }
 
-    public static function logout()
-    {
-        // Check login status
-        //
-        // If not logged in return redirect
-        //
-        //
-    }
-
     public static function check()
     {
-        // Check if the user is currently logged in at all to a valid user ID
+        if(Session::get('authenticated_user'))
+        {
+            return true;
+        }
+        return false;
     }
 
     public static function user()
     {
-        // return the currently authetnicated user object
+        if(Session::get('authenticated_user'))
+        {
+            return User::find(Session::get('authenticated_user'));
+        }
+        throw new \App\Services\Exceptions\NotAuthenticatedException;
+    }
+
+    private static function setLoggedIn($user)
+    {
+        if(isset($user['id'])){
+            Session::set('authenticated_user', $user['id']);
+        }
+    }
+
+    public static function logout()
+    {
+        if (Session::get('authenticated_user'))
+        {
+            Session::destroy('authenticated_user');
+        }
     }
 }

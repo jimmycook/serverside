@@ -40,7 +40,7 @@ class User extends Model
         return null;
     }
 
-    public static function getByID($id)
+    public static function find($id)
     {
         $query = "SELECT * FROM " . self::$table . " WHERE id = $id;";
         $result = Database::getInstance()->query($query);
