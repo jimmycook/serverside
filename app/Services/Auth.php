@@ -26,7 +26,7 @@ class Auth
 
     public static function check()
     {
-        if(Session::get('authenticated_user'))
+        if (Session::get('authenticated_user'))
         {
             return true;
         }
@@ -35,7 +35,7 @@ class Auth
 
     public static function user()
     {
-        if(Session::get('authenticated_user'))
+        if (Session::get('authenticated_user'))
         {
             return User::find(Session::get('authenticated_user'));
         }
@@ -44,7 +44,8 @@ class Auth
 
     private static function setLoggedIn($user)
     {
-        if(isset($user['id'])){
+        if (isset($user['id']))
+        {
             Session::set('authenticated_user', $user['id']);
         }
     }

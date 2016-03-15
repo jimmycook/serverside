@@ -17,10 +17,14 @@ class User extends Model
         }
     }
 
-    public static function create($username, $password, $email, $firstName, $lastName, $seller = 0, $credit = 0)
+    public static function create($details)
     {
+        $query = "INSERT INTO " . self::$table ." VALUES
+            (null, :username, :password, :first_name, :last_name, :email, :credit, :seller);";
 
-        $query = "INSERT INTO users VALUES (null, $username, password, $firstName, $lastName, $email, $credit, $seller)";
+        $result = Database::getInstance()->query($query, $details);
+
+        echo $result;
     }
 
     public static function usernameExists($username, $email)

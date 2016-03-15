@@ -64,17 +64,16 @@ class Database
     public function query($query, $params = [])
     {
         $statement = $this->pdo->prepare($query);
+        $result = $statement->execute($params);
 
-        if (count($params))
+        $array = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        if (count($array))
         {
-            foreach ($params as $key => $param)
-            {
-                $statement->bindParam($key, $param['value'], $param['type']);
-            }
+            return $array;
         }
 
-        $statement->execute();
-        return $statement->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
     }
 
 }

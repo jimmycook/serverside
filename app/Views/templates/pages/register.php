@@ -5,28 +5,28 @@
     <div class="col-sm-4 col-sm-offset-4">
         <div class="panel">
             <div class="panel-heading">
-                <h2 class="text-center">Register</h2>
+                <h2 class="text-center">Register for an account</h2>
 
                 <form class="" action="/register" method="post">
                     <div class="form-group">
                         <label>Username</label>
-                        <input type="text" class="form-control"  name="username" placeholder="Username...">
+                        <input type="text" class="form-control"  name="username" placeholder="Username">
                     </div>
                     <div class="form-group">
                         <label>Password</label>
-                        <input type="password" class="form-control"  name="password" placeholder="Password...">
+                        <input type="password" class="form-control"  name="password" placeholder= "Password">
                     </div>
                     <div class="form-group">
                         <label>First Name</label>
-                        <input type="text" class="form-control"  name="first_name" placeholder="First name...">
+                        <input type="text" class="form-control"  name="first_name" placeholder="First name">
                     </div>
                     <div class="form-group">
                         <label>Last Name</label>
-                        <input type="text" class="form-control"  name="last_name" placeholder="Last name...">
+                        <input type="text" class="form-control"  name="last_name" placeholder="Last name">
                     </div>
                     <div class="form-group">
                         <label>Email</label>
-                        <input type="email" class="form-control"  name="email" placeholder="Email...">
+                        <input type="email" class="form-control"  name="email" placeholder="Email">
                     </div>
                     <input class="btn btn-primary btn-lg btn-block" type="submit" value="Sign Up">
                 </form>

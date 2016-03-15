@@ -14,6 +14,7 @@
         }
     },
     "require": {
-        "phroute/phroute": "^2.1"
+        "phroute/phroute": "^2.1",
+        "maximebf/debugbar": "1.*"
     }
 }
