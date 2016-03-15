@@ -12,7 +12,7 @@ class AccountController
      */
     public function anyIndex()
     {
-        return 'account loads';
+        return View::render('/pages/account');
     }
 
     public function anyAddfunds()

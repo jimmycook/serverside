@@ -11,7 +11,8 @@ class Auth
     public static function login($username, $password)
     {
         $user = User::getByUsername($username, $password);
-        if($user)
+
+        if ($user)
         {
             if(Password::check($password, $user['password']))
             {
@@ -39,13 +40,12 @@ class Auth
         {
             return User::find(Session::get('authenticated_user'));
         }
-        throw new \App\Services\Exceptions\NotAuthenticatedException;
     }
 
     private static function setLoggedIn($user)
     {
         if (isset($user['id']))
-        {
+        {            
             Session::set('authenticated_user', $user['id']);
         }
     }

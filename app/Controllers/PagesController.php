@@ -2,11 +2,11 @@
 
 namespace App\Controllers;
 
-use App\Views\View;
+use App\Services\Password;
 use App\Services\Request;
 use App\Services\Auth;
-use App\Services\Password;
 use App\Models\User;
+use App\Views\View;
 
 class PagesController
 {
@@ -16,23 +16,39 @@ class PagesController
         // $this->request = new Request();
     }
 
+    /**
+     * Serve the homepage
+     * @return string view
+     */
     public function anyIndex()
     {
         return View::render('prototype');
     }
 
+    /**
+     * Serve the login page
+     * @return string
+     */
     public function getLogin()
     {
+
         if(Auth::check())
         {
             redirect('/account/');
         }
+        
         return View::render('pages/login');
     }
 
+    /**
+     * Handle the login form being submitted.
+     *
+     * @return string the view if the login fails
+     */
     public function postLogin()
     {
-        if(Auth::check())
+
+        if (Auth::check())
         {
             redirect('/account/');
         }
@@ -42,7 +58,9 @@ class PagesController
         $username = $request->post('username');
         $password = $request->post('password');
 
-        if(Auth::login($username, $password))
+        $loggedIn = Auth::login($username, $password);
+
+        if ($loggedIn)
         {
             redirect('/account');
         }
@@ -53,12 +71,21 @@ class PagesController
 
     }
 
+    /**
+     * Log the user out
+     * @return redirect
+     */
     public function anyLogout()
     {
         Auth::logout();
         redirect('/');
     }
 
+    /**
+     * Display the registration form
+     *
+     * @return void
+     */
     public function getRegister()
     {
         if(Auth::check())
@@ -69,6 +96,13 @@ class PagesController
         return View::render('pages/register');
     }
 
+    /**
+     * Handle the registration form being submitted
+     *
+     * Will call a redirect
+     *
+     * @return void
+     */
     public function postRegister()
     {
         if(Auth::check())

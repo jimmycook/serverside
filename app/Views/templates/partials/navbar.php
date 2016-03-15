@@ -11,6 +11,9 @@
                     Categories
                 </a>
             </li>
+
+
+            <? if (App\Services\Auth::check()): ?>
             <li class="Menu__item">
                 <a href="/create">
                     Create listing
@@ -21,6 +24,23 @@
                     Your Account
                 </a>
             </li>
+            <li class="Menu__item">
+                <a href="/logout">
+                    Logout
+                </a>
+            </li>
+            <? else : ?>
+            <li class="Menu__item">
+                <a href="/login">
+                    Login
+                </a>
+            </li>
+            <li class="Menu__item">
+                <a href="/register">
+                    Register
+                </a>
+            </li>
+            <? endif;?>
         </ul>
     </div>
 
