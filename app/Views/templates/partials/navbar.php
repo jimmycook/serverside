@@ -13,7 +13,7 @@
             </li>
 
 
-            <? if (App\Services\Auth::check()): ?>
+            <? if (check()): ?>
             <li class="Menu__item">
                 <a href="/create">
                     Create listing

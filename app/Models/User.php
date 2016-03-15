@@ -23,15 +23,12 @@ class User extends Model
             (null, :username, :password, :first_name, :last_name, :email, :credit, :seller);";
 
         $result = Database::getInstance()->query($query, $details);
-
-        echo $result;
     }
 
     public static function usernameExists($username, $email)
     {
         $query = "SELECT * FROM $this->table WHERE username = $username OR email = $email;";
         $database = Database::getInstance();
-        dd($database);
         return count($result);
     }
 
@@ -39,8 +36,12 @@ class User extends Model
     {
         $query = 'SELECT * FROM ' . self::$table;
         $result = Database::getInstance()->query($query);
+
         if (count($result))
+        {
             return $result;
+        }
+
         return null;
     }
 
@@ -48,10 +49,12 @@ class User extends Model
     {
         $query = "SELECT * FROM " . self::$table . " WHERE id = $id;";
         $result = Database::getInstance()->query($query);
+
         if(count($result))
         {
             return $result[0];
         }
+
         return false;
     }
 
@@ -66,11 +69,4 @@ class User extends Model
         return false;
     }
 
-    /**
-     * Convert the result of a query into User objects
-     */
-    public static function convert($array)
-    {
-        dd($array);
-    }
 }

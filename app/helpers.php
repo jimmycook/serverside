@@ -10,6 +10,17 @@ function dd($thing = '')
 	die();
 }
 
+function check()
+{
+	return App\Services\Auth::check();
+}
+
+function user()
+{
+
+	return App\Services\Auth::user();
+}
+
 function flashMessage($type = 'info')
 {
 	if($message = App\Services\Session::get('flash_message'))

@@ -9,7 +9,7 @@
         </div>
 
         <div class="panel-body">
-            account shit
+            <p>Logged in as <strong><? echo user()['username'] ?></strong></p>
         </div>
 
     </div>
