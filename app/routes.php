@@ -14,5 +14,12 @@ $router->controller('account', 'App\\Controllers\\AccountController', ['before' 
 $router->controller('sell', 'App\\Controllers\\AccountController', ['before' => 'checkSeller']);
 
 $router->any('test', function () {
-
+    if(check())
+    {
+        return 'logged in';
+    }
+    else
+    {
+        return 'not logged in';
+    }
 });

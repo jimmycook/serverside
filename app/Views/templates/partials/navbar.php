@@ -13,7 +13,7 @@
             </li>
 
 
-            <? if (check()): ?>
+            <?php if (check()): ?>
             <li class="Menu__item">
                 <a href="/create">
                     Create listing
@@ -29,7 +29,7 @@
                     Logout
                 </a>
             </li>
-            <? else : ?>
+            <?php else : ?>
             <li class="Menu__item">
                 <a href="/login">
                     Login
@@ -40,7 +40,7 @@
                     Register
                 </a>
             </li>
-            <? endif;?>
+            <?php endif;?>
         </ul>
     </div>
 

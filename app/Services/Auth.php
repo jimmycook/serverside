@@ -45,7 +45,7 @@ class Auth
     private static function setLoggedIn($user)
     {
         if (isset($user['id']))
-        {            
+        {
             Session::set('authenticated_user', $user['id']);
         }
     }

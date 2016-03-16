@@ -18,7 +18,7 @@ function check()
 function user()
 {
 
-	return App\Services\Auth::user();
+	return \App\Services\Auth::user();
 }
 
 function flashMessage($type = 'info')
