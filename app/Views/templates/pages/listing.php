@@ -15,6 +15,7 @@
                 </div>
                 <div class="col-md-9">
                     <p><strong>Price: </strong>£<?php echo number_format($listing['price'] / 100, 2) ?></p>
+                    <p><strong>Sold By: </strong><?php echo $user['first_name'] . ' ' . $user['last_name'] . ' <strong>(' . $user['username'] ?>)</strong></p>
                     <p><strong>Description: </strong><?php echo $listing['description']?></p>
                     <button class="btn btn-primary btn-lg" type="button" name="button" >Buy</button>
                 </div>
@@ -24,7 +25,7 @@
 
     </div>
     <pre>
-        <?php print_r($listing); ?>
+        <?php print_r($user); ?>
     </pre>
 </div>
 
