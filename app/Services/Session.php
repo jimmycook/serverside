@@ -16,7 +16,9 @@ class Session
     public static function get($key, $default = false)
     {
         if(isset($_SESSION[$key]))
+        {
             return $_SESSION[$key];
+        }
         return $default;
     }
 

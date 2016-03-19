@@ -36,7 +36,7 @@ class PagesController
         {
             redirect('/account/');
         }
-        
+
         return View::render('pages/login');
     }
 
@@ -135,8 +135,5 @@ class PagesController
               Please try again.');
             redirect($_SERVER['HTTP_REFERER']);
         }
-
-
     }
-
 }
