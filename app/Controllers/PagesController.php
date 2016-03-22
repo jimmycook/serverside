@@ -34,7 +34,10 @@ class PagesController
 
         if(Auth::check())
         {
-            redirect('/account/');
+            if(!goToFlashUrl())
+            {
+                redirect('/account');
+            }
         }
 
         return View::render('pages/login');
@@ -62,13 +65,14 @@ class PagesController
 
         if ($loggedIn)
         {
-            redirect('/account');
+            if(!goToFlashUrl())
+            {
+                redirect('/account');
+            }
         }
 
         flash('Your login details were incorrect.');
         return View::render('pages/login');
-
-
     }
 
     /**
@@ -126,11 +130,14 @@ class PagesController
 
         if (Auth::login($new['username'], $password))
         {
-            redirect('/account');
+            if(!goToFlashUrl())
+            {
+                redirect('/account');
+            }
         }
         else
         {
-            flash('There was a problem with your sign up. There username or
+            flash('There was a problem with your registration. There username or
              email you are trying to sign up with may already have been used.
               Please try again.');
             redirect($_SERVER['HTTP_REFERER']);

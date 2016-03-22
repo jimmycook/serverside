@@ -73,7 +73,7 @@ class Database
             return $array;
         }
 
-        return $result;
+        return false;
     }
 
 }

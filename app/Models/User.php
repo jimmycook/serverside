@@ -69,4 +69,15 @@ class User extends Model
         return false;
     }
 
+    public static function updateCredit($id, $operator, $value)
+    {
+        $query = "UPDATE users SET credit = (credit $operator $value) WHERE id = :id;";
+        $result = Database::getInstance()->query($query, ['id' => $id]);
+        if(count($result))
+        {
+            return $result[0];
+        }
+        return false;
+    }
+
 }

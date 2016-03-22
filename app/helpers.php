@@ -44,6 +44,25 @@ function flash($message)
 	App\Services\Session::set('flash_message', $message);
 }
 
+function flashURL($url)
+{
+	App\Services\Session::set('flash_url', $url);
+}
+
+function goToFlashUrl()
+{
+	if ($url = App\Services\Session::get('flash_url'))
+	{
+		App\Services\Session::destroy('flash_url');
+		header('Location: ' . $url);
+		die();
+	}
+	else
+	{
+		return false;
+	}
+}
+
 function redirect($to)
 {
 	header('Location: ' . $to);

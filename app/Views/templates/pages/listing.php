@@ -17,7 +17,19 @@
                     <p><strong>Price: </strong>£<?php echo number_format($listing['price'] / 100, 2) ?></p>
                     <p><strong>Sold By: </strong><?php echo $user['first_name'] . ' ' . $user['last_name'] . ' <strong>(' . $user['username'] ?>)</strong></p>
                     <p><strong>Description: </strong><?php echo $listing['description']?></p>
-                    <button class="btn btn-primary btn-lg" type="button" name="button" >Buy</button>
+                    <form class="" action="/listings/<?php echo $listing['slug']?>" method="post">
+                        <?php
+                        if (check())
+                        {
+                            echo '<input class="btn btn-primary btn-lg" type="submit" name="submit" value="Buy This Item">';
+                        }
+                        else
+                        {
+                            echo '<input class="btn btn-lg" type="submit" name="submit" value="Sign in to buy this item">';
+
+                        }
+                         ?>
+                    </form>
                 </div>
             </div>
         </div>
