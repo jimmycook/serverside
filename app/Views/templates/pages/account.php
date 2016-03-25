@@ -49,7 +49,15 @@
         </div>
 
         <div class="panel-body">
-            You currently have X listings, and are being billed at £xx.xx a day
+        <?php if (count($listings))
+        {
+            echo '<p>You have ' . count($listings) . ' listings active at the moment.';
+        }
+
+        foreach ($listings as $listing): ?>
+
+
+        <?php endforeach; ?>
         </div>
 
     </div>

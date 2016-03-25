@@ -29,4 +29,16 @@ class Listing
         // $sql = 'INSERT INTO ' . self::$table . ' VALUES ()'
     }
 
+    public static function getUserListings(array $user)
+    {
+        $query = 'SELECT * FROM listings WHERE user_id = :user_id';
+        $result = Database::getInstance()->query($query, ['user_id' => $user['id']]);
+
+        if(count($result))
+        {
+            return $result;
+        }
+        return [];
+    }
+
 }

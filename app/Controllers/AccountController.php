@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Views\View;
 use App\Services\Request;
 use App\Models\User;
+use App\Models\Listing;
 
 class AccountController
 {
@@ -16,7 +17,9 @@ class AccountController
     {
         $user = user();
 
-        return View::render('/pages/account', ['user' => $user]);
+        $listings = Listing::getUserListings($user);
+
+        return View::render('/pages/account', ['user' => $user, 'listings' => $listings]);
     }
 
     public function postAddfunds()
