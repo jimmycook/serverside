@@ -45,20 +45,61 @@
     <div class="panel">
 
         <div class="panel-heading">
-            <h3>Your Listings</h3>
+            <div class="row">
+                <div class="col-sm-8">
+                    <h3>Your Listings</h3>
+                </div>
+                <div class="col-sm-4">
+                    <button class="btn btn-primary pull-right btn-lg">Create a listing</button>
+                </div>
+            </div>
         </div>
 
         <div class="panel-body">
-        <?php if (count($listings))
-        {
-            echo '<p>You have ' . count($listings) . ' listings active at the moment.';
-        }
+            <p>
+                It costs £1 a day to host a listing for an item on the site. You will be billed automatically. Your credit can go into the negative from this so please remember to top up your account.
+            </p>
+        <?php if (count($listings)):
+            ?>
+            <table class="table">
+                <thead>
+                   <tr>
+                     <th>Item Name</th>
+                     <th>Price</th>
+                     <th>Billed Until</th>
+                     <th>Purchased</th>
+                     <th>Delete</th>
+                   </tr>
+                </thead>
+            <?php
 
-        foreach ($listings as $listing): ?>
+            foreach ($listings as $listing): ?>
+
+            <tr>
+                <td>
+                    <?php echo $listing['name'] ?>
+                </td>
+                <td>
+                    £<?php echo number_format($listing['price'] / 100, 2) ?>
+                </td>
+                <td>
+                    <?php echo $listing['paid_until'] ?>
+
+                </td>
+                <td>
+                    <button type="button" class="btn btn-primary" disabled>View Purchase Info</button>
+                </td>
+                <td>
+                    <button class="btn btn-danger" name="delete" data-listing="<?php echo $listing['slug']?>">Delete</button>
+                </td>
+            </tr>
 
 
-        <?php endforeach; ?>
+            <?php endforeach;
+            endif; ?>
+            </table>
         </div>
+        <pre><?php print_r($listings) ?></pre>
 
     </div>
 </div>
