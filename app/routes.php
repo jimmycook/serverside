@@ -12,8 +12,6 @@ $router->controller('/', 'App\\Controllers\\PagesController');
 
 $router->controller('account', 'App\\Controllers\\AccountController', ['before' => 'check']);
 
-$router->controller('sell', 'App\\Controllers\\AccountController', ['before' => 'checkSeller']);
-
 /**
  * Show a specific listing
  */
@@ -41,7 +39,23 @@ $router->post('listings/{slug:c}', function ($slug) {
         flashURL("listings/$slug");
         redirect('/login');
     }
+});
 
+
+$router->group(['before' => 'auth', 'prefix' => 'api'], function($router){
+    /**
+     * Api request for the listing
+     */
+    $router->get('listings/{slug:c}', function ($slug) {
+        $listing = Listing::findSlug($slug);
+
+        if (!$listing)
+        {
+            return false;
+        }
+
+        return json_encode($listing);
+    });
 
 
 });

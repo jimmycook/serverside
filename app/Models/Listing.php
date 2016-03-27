@@ -16,7 +16,11 @@ class Listing
 
         if ($result)
         {
-            return $result[0];
+            $listing = $result[0];
+
+            $listing['order'] = Order::getForListing($listing['id']);
+
+            return $listing;
         }
         else
         {
@@ -34,6 +38,12 @@ class Listing
         $query = 'SELECT * FROM listings WHERE user_id = :user_id';
         $result = Database::getInstance()->query($query, ['user_id' => $user['id']]);
 
+        foreach($result as $key => $listing)
+        {
+            $listing['order'] = Order::getForListing($listing['id']);
+            $result[$key] = $listing;
+        }
+        
         if(count($result))
         {
             return $result;
