@@ -4,9 +4,6 @@ import Vue from 'vue';
 var bootstrap = require('bootstrap');
 
 
-
-
-
 // Account Page jQuery
 $(".listing-utility").on('click', function() {
     var url = '/api/listings/' + $(this).data('listing');
@@ -19,13 +16,14 @@ $(".listing-utility").on('click', function() {
         var button = $("#listing-modal-button");
         button.data({
             listing: data.slug,
+            order: data.order.id,
             status: listingStatus
         });
         if (listingStatus == 'completed' || listingStatus == 'processing') {
             var address = data.order.address;
 
             header.html("Order Information");
-            body.html("Order Information Here TODO");
+            body.html(data.name);
 
             if (listingStatus == 'completed') {
                 button.hide();
@@ -44,7 +42,7 @@ $(".listing-utility").on('click', function() {
             button.removeClass();
             button.addClass("btn btn-danger");
             button.show();
-            button.html("Delete Order");
+            button.html("Delete");
         }
         $("#listing-modal").modal('show');
     });
@@ -53,6 +51,22 @@ $(".listing-utility").on('click', function() {
 
 $("#listing-modal-button").click(function() {
     var button = $("#listing-modal-button");
-    console.log(button.data('status'));
-    console.log(button.data('listing'));
+    if (button.data('status')  == 'processing') {
+        $.post('/api/complete'), {id: button.data('order')}, function(data) {
+            console.log('fired');
+            if(data)
+                location.reload();
+            else {
+                alert('This action could not be completed');
+            }
+        }
+    }
+    else if (button.data('status') == 'none') {
+        $.post('/api/delete', {slug: button.data('listing')}, function(data) {
+            if(data)
+                location.reload();
+            else
+                alert('This action could not be completed');
+        });
+    }
 });

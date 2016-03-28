@@ -59,7 +59,8 @@
             <p>
                 It costs £1 a day to host a listing for an item on the site. You will be billed automatically. Your credit can go into the negative from this so please remember to top up your account.
             </p>
-        <?php if (count($listings)):
+        <?php
+        if (count($listings)):
             ?>
             <table class="table">
                 <thead>
@@ -67,6 +68,7 @@
                      <th>Item Name</th>
                      <th>Price</th>
                      <th>Billed Until</th>
+                     <th>Action</th>
                    </tr>
                 </thead>
             <tbody>
