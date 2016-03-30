@@ -25693,21 +25693,27 @@ var moment = require('moment');
 
 var bootstrap = require('bootstrap');
 
+var pressed;
+
 // Account Page jQuery
 $(".listing-utility").on('click', function () {
-    var url = '/api/listings/' + $(this).data('listing');
-    var listingStatus = $(this).data('status');
+    pressed = $(this);
+    var url = '/api/listings/' + pressed.data('listing');
+    var listingStatus = pressed.data('status');
 
     $.get(url, function (data) {
         data = $.parseJSON(data);
+
         var header = $("#listing-modal-header");
         var body = $("#listing-modal-body");
         var button = $("#listing-modal-button");
+
         button.data({
             listing: data.slug,
             order: data.order.id,
             status: listingStatus
         });
+
         if (listingStatus == 'completed' || listingStatus == 'processing') {
             var address = data.order.address;
 
@@ -25736,13 +25742,20 @@ $(".listing-utility").on('click', function () {
 
 $("#listing-modal-button").click(function () {
     var button = $("#listing-modal-button");
+    var orderID = { id: button.data('order') };
     if (button.data('status') == 'processing') {
-        $.post('/api/complete'), { id: button.data('order') }, function (data) {
-            console.log('fired');
-            if (data) location.reload();else {
-                alert('This action could not be completed');
+        $.ajax({
+            url: '/api/complete',
+            method: 'POST',
+            data: orderID,
+            success: function success() {
+                console.log('should update button here');
+                pressed.data("status", "completed");
+                pressed.removeClass("btn-primary");
+                pressed.addClass("btn-success");
+                $("#listing-modal").modal('hide');
             }
-        };
+        });
     } else if (button.data('status') == 'none') {
         $.post('/api/delete', { slug: button.data('listing') }, function (data) {
             if (data) location.reload();else alert('This action could not be completed');

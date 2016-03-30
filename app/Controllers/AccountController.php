@@ -18,7 +18,12 @@ class AccountController
         $user = user();
 
         $listings = Listing::getUserListings($user);
-
+        // Sort the array
+        usort($listings, function ($a1, $a2) {
+            $v1 = strtotime($a1['created_at']);
+            $v2 = strtotime($a2['created_at']);
+            return $v1 - $v2;
+        });
         return View::render('/pages/account', ['user' => $user, 'listings' => $listings]);
     }
 

@@ -1,14 +1,14 @@
 <?php
 
-use App\Views\View;
-use App\Services\Database;
-use App\Services\Password;
-use App\Services\Auth;
-use App\Services\Session;
-use App\Services\Request;
-use App\Models\User;
 use App\Models\Listing;
 use App\Models\Order;
+use App\Models\User;
+use App\Services\Auth;
+use App\Services\Database;
+use App\Services\Password;
+use App\Services\Request;
+use App\Services\Session;
+use App\Views\View;
 
 $router->controller('/', 'App\\Controllers\\PagesController');
 
@@ -44,8 +44,10 @@ $router->post('listings/{slug:c}', function ($slug) {
 });
 
 
+// Routes at the /api/* uri
 $router->group(['prefix' => 'api'], function($router){
 
+    // Get the listing details from the API
     $router->get('listings/{slug:c}', function ($slug) {
         $listing = Listing::findSlug($slug);
 
@@ -57,6 +59,7 @@ $router->group(['prefix' => 'api'], function($router){
         return json_encode($listing);
     });
 
+    // Delete listings
     $router->post('delete', function () {
         $request = new Request;
 
@@ -74,13 +77,8 @@ $router->group(['prefix' => 'api'], function($router){
 
     $router->post('complete', function () {
         $request = new Request;
-
         return Order::complete($request->post('id'));
 
     });
-
-});
-
-$router->any('test', function () {
 
 });
