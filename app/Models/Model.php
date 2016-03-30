@@ -6,4 +6,5 @@ use App\Services\Database;
 
 abstract class Model
 {
+
 }

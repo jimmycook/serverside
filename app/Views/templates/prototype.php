@@ -5,10 +5,10 @@
         <h3>Recent Listings</h3>
         <div class="panel-body">
             <div class="row">
-                <div class="col-sm-3"><img src="http://cumbrianrun.co.uk/wp-content/uploads/2014/02/default-placeholder.png" alt="Placeholder"></div>
-                <div class="col-sm-3"><img src="http://cumbrianrun.co.uk/wp-content/uploads/2014/02/default-placeholder.png" alt="Placeholder"></div>
-                <div class="col-sm-3"><img src="http://cumbrianrun.co.uk/wp-content/uploads/2014/02/default-placeholder.png" alt="Placeholder"></div>
-                <div class="col-sm-3"><img src="http://cumbrianrun.co.uk/wp-content/uploads/2014/02/default-placeholder.png" alt="Placeholder"></div>
+                <div class="col-sm-3"><img src="/images/placeholder.png" alt="Placeholder"></div>
+                <div class="col-sm-3"><img src="/images/placeholder.png" alt="Placeholder"></div>
+                <div class="col-sm-3"><img src="/images/placeholder.png" alt="Placeholder"></div>
+                <div class="col-sm-3"><img src="/images/placeholder.png" alt="Placeholder"></div>
             </div>
         </div>
     </div>
@@ -16,10 +16,10 @@
         <h3>Guitars</h3>
         <div class="panel-body">
             <div class="row">
-                <div class="col-sm-3"><img src="http://cumbrianrun.co.uk/wp-content/uploads/2014/02/default-placeholder.png" alt="Placeholder"></div>
-                <div class="col-sm-3"><img src="http://cumbrianrun.co.uk/wp-content/uploads/2014/02/default-placeholder.png" alt="Placeholder"></div>
-                <div class="col-sm-3"><img src="http://cumbrianrun.co.uk/wp-content/uploads/2014/02/default-placeholder.png" alt="Placeholder"></div>
-                <div class="col-sm-3"><img src="http://cumbrianrun.co.uk/wp-content/uploads/2014/02/default-placeholder.png" alt="Placeholder"></div>
+                <div class="col-sm-3"><img src="/images/placeholder.png" alt="Placeholder"></div>
+                <div class="col-sm-3"><img src="/images/placeholder.png" alt="Placeholder"></div>
+                <div class="col-sm-3"><img src="/images/placeholder.png" alt="Placeholder"></div>
+                <div class="col-sm-3"><img src="/images/placeholder.png" alt="Placeholder"></div>
             </div>
         </div>
     </div>
@@ -27,10 +27,10 @@
         <h3>Bass Guitars</h3>
         <div class="panel-body">
             <div class="row">
-                <div class="col-sm-3"><img src="http://cumbrianrun.co.uk/wp-content/uploads/2014/02/default-placeholder.png" alt="Placeholder"></div>
-                <div class="col-sm-3"><img src="http://cumbrianrun.co.uk/wp-content/uploads/2014/02/default-placeholder.png" alt="Placeholder"></div>
-                <div class="col-sm-3"><img src="http://cumbrianrun.co.uk/wp-content/uploads/2014/02/default-placeholder.png" alt="Placeholder"></div>
-                <div class="col-sm-3"><img src="http://cumbrianrun.co.uk/wp-content/uploads/2014/02/default-placeholder.png" alt="Placeholder"></div>
+                <div class="col-sm-3"><img src="/images/placeholder.png" alt="Placeholder"></div>
+                <div class="col-sm-3"><img src="/images/placeholder.png" alt="Placeholder"></div>
+                <div class="col-sm-3"><img src="/images/placeholder.png" alt="Placeholder"></div>
+                <div class="col-sm-3"><img src="/images/placeholder.png" alt="Placeholder"></div>
             </div>
         </div>
     </div>
@@ -38,10 +38,10 @@
         <h3>Amplifiers</h3>
         <div class="panel-body">
             <div class="row">
-                <div class="col-sm-3"><img src="http://cumbrianrun.co.uk/wp-content/uploads/2014/02/default-placeholder.png" alt="Placeholder"></div>
-                <div class="col-sm-3"><img src="http://cumbrianrun.co.uk/wp-content/uploads/2014/02/default-placeholder.png" alt="Placeholder"></div>
-                <div class="col-sm-3"><img src="http://cumbrianrun.co.uk/wp-content/uploads/2014/02/default-placeholder.png" alt="Placeholder"></div>
-                <div class="col-sm-3"><img src="http://cumbrianrun.co.uk/wp-content/uploads/2014/02/default-placeholder.png" alt="Placeholder"></div>
+                <div class="col-sm-3"><img src="/images/placeholder.png" alt="Placeholder"></div>
+                <div class="col-sm-3"><img src="/images/placeholder.png" alt="Placeholder"></div>
+                <div class="col-sm-3"><img src="/images/placeholder.png" alt="Placeholder"></div>
+                <div class="col-sm-3"><img src="/images/placeholder.png" alt="Placeholder"></div>
 
             </div>
         </div>

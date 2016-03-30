@@ -17,28 +17,45 @@
         </div>
 
         <div class="panel-body">
-            <section class="col-md-6">
-                <h4>Current Balance: £<?php echo number_format($user['credit'] / 100, 2) ?></h4>
-                <p>
-                    Note: In this app if it was live, this would use a payment gateway to properly add money to your account; however for this example funds are directly added to your account.
-                </p>
-            </section>
-            <section class="col-md-6">
-                <h4>Add funds</h4>
-                <form class="form-inline" action="/account/addfunds" method="post">
-                  <div class="form-group">
-                    <div class="input-group">
-                      <div class="input-group-addon">£</div>
-                      <input type="number" class="form-control" name="pounds" placeholder="Pounds">
-                      <div class="input-group-addon">.</div>
-                      <input type="number" class="form-control" name="pence" placeholder="Pence" max="99">
+            <h4>Current Balance:
+                <span id="current-balance">£<?php echo number_format($user['credit'] / 100, 2) ?></span>
+            </h4>
+            <div class="row">
+                <section class="col-md-6">
+                    <h4>Add funds</h4>
+                    <form class="form-inline" action="/account/addfunds" method="post">
+                      <div class="form-group">
+                        <div class="input-group">
+                          <div class="input-group-addon">£</div>
+                          <input type="number" class="form-control" name="pounds" placeholder="Pounds">
+                          <div class="input-group-addon">.</div>
+                          <input type="number" class="form-control" name="pence" placeholder="Pence" max="99">
 
-                    </div>
-                  </div>
-                  <button type="submit" class="btn btn-primary">Add funds</button>
-                </form>
-
-            </section>
+                        </div>
+                      </div>
+                      <button type="submit" class="btn btn-primary">Add funds</button>
+                    </form>
+                </section>
+                <section class="col-md-6">
+                    <h4>Withdraw funds</h4>
+                    <form class="form-inline" action="/account/withdrawfunds" method="post">
+                      <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-addon">£</div>
+                            <input type="number" class="form-control" name="pounds" placeholder="Pounds">
+                            <div class="input-group-addon">.</div>
+                            <input type="number" class="form-control" name="pence" placeholder="Pence" max="99">
+                        </div>
+                      </div>
+                      <button type="submit" class="btn btn-primary">Withdraw funds</button>
+                    </form>
+                </section>
+            </div>
+            <br>
+            <p>
+                Note: In this app if it was live, this would use a payment gateway
+                to properly manage funds. However in this prototype it's simulated.
+            </p>
         </div>
 
     </div>
@@ -50,7 +67,7 @@
                     <h3>Your Listings</h3>
                 </div>
                 <div class="col-sm-4">
-                    <button class="btn btn-primary pull-right btn-lg">Create a listing</button>
+                    <button class="btn btn-primary pull-right btn-lg" id="create-listing-modal-button">Create a listing</button>
                 </div>
             </div>
         </div>
@@ -61,13 +78,52 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         <h4>Create a listing</h4>
                     </div>
-                    <div class="modal-body">
+                    <form action="/account/createlisting" method="post">
+                        <div class="modal-body">
 
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" id="listing-modal-button"></button>
-                    </div>
+                            <div class="form-group">
+                                <label for="name">Name:</label>
+                                <input type="text" class="form-control" name="name" placeholder="Listing name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="description">Description:</label>
+                                <textarea class="form-control" name="description" placeholder="Listing description" rows="2" required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label class="file">
+                                    Image
+                                </label>
+                                <!-- <div class="row" id="image-upload"> -->
+                                    <!-- <div class="col-sm-6"> -->
+                                        <!-- <div id="image-file-container">
+                                            <input type="file" id="image-file" name="image-file">
+                                            <span class="file-custom"></span>
+                                        </div> -->
+                                        <div id="image-url-container">
+                                            <input type="text" class="form-control" name="image-url" placeholder="Image URL">
+                                        </div>
+                                    <!-- </div>
+                                    <div class="col-sm-6">
+                                        <button type="button" name="button" class="btn btn-primary" id="image-switch" data-image="image-file">Use a URL instead</button>
+                                    </div> -->
+                                <!-- </div> -->
+                                <!-- <input type="hidden" name="image-type" id="image-type" value="image-file"> -->
+                                </div>
+                                <div class="form-group">
+                                    <label>Price</label>
+                                    <div class="input-group">
+                                        <div class="input-group-addon">£</div>
+                                        <input type="number" class="form-control" name="pounds" placeholder="Pounds">
+                                        <div class="input-group-addon">.</div>
+                                        <input type="number" class="form-control" name="pence" placeholder="Pence" max="99">
+                                    </div>
+                                </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Create Listing</button>
+                        </div>
+                    </form>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
@@ -129,8 +185,9 @@
 
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-danger" id="listing-order-cancel-button">Cancel this order</button>
                             <button type="button" class="btn btn-primary" id="listing-modal-button"></button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                         </div>
                     </div><!-- /.modal-content -->
                 </div><!-- /.modal-dialog -->
@@ -138,8 +195,6 @@
             <?php endif; ?>
             </table>
         </div>
-        <pre><?php print_r($listings) ?></pre>
-
     </div>
 </div>
 

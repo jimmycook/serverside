@@ -60,7 +60,7 @@ $router->group(['prefix' => 'api'], function($router){
     });
 
     // Delete listings
-    $router->post('delete', function () {
+    $router->post('listing/delete', function () {
         $request = new Request;
 
         $listing = Listing::findSlug($request->post('slug'));
@@ -75,10 +75,14 @@ $router->group(['prefix' => 'api'], function($router){
         return false;
     });
 
-    $router->post('complete', function () {
+    $router->post('order/complete', function () {
         $request = new Request;
         return Order::complete($request->post('id'));
+    });
 
+    $router->post('order/cancel', function () {
+        $request = new Request;
+        return Order::cancel($request->post('id'));
     });
 
 });
