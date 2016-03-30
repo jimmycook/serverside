@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 28, 2016 at 01:40 AM
+-- Generation Time: Mar 30, 2016 at 01:26 AM
 -- Server version: 5.7.9
 -- PHP Version: 7.0.0
 
@@ -60,7 +60,7 @@ CREATE TABLE IF NOT EXISTS `orders` (
   `listing_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `address` text,
-  `status` varchar(10) NOT NULL,
+  `status` varchar(10) NOT NULL DEFAULT 'processing',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
