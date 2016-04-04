@@ -25579,6 +25579,16 @@ var moment = require('moment');
 
 var bootstrap = require('bootstrap');
 
+// Image error handling
+$('img').on("error", function () {
+    $(this).attr('src', '/images/placeholder.png');
+});
+
+// Set up tooltips
+$(document).ready(function () {
+    $('[data-toggle="tooltip"]').tooltip();
+});
+
 require('./account.js');
 
 },{"./account.js":18,"bootstrap":1,"jquery":14,"moment":15,"vue":17}]},{},[19]);

@@ -6,15 +6,12 @@ use App\Services\Password;
 use App\Services\Request;
 use App\Services\Auth;
 use App\Models\User;
+use App\Models\Listing;
+use App\Models\Category;
 use App\Views\View;
 
 class PagesController
 {
-
-    public function __construct()
-    {
-        // $this->request = new Request();
-    }
 
     /**
      * Serve the homepage
@@ -22,7 +19,42 @@ class PagesController
      */
     public function anyIndex()
     {
-        return View::render('prototype');
+        $categories = Category::getAll();
+        $recent = Listing::getRecent();
+        //  @TODO fix this
+        foreach ($categories as $key => $category) {
+            if (is_array($category['listings']))
+            {
+                $category['listings'] = array_slice($category['listings'], 0 , 4);
+                $categories[$key] = $category;
+            }
+        }
+
+        return View::render('pages/home', [
+            'recent' => $recent,
+            'categories' => $categories,
+        ]);
+    }
+
+    /**
+     * server the categories page
+     * @return string view
+     */
+    public function anyCategories()
+    {
+        $categories = Category::getAll();
+
+        foreach ($categories as $key => $category) {
+            if (is_array($category['listings']))
+            {
+                $category['listings'] = array_slice($category['listings'], 0 , 4);
+                $categories[$key] = $category;
+            }
+        }
+
+        return View::render('pages/categories', [
+            'categories' => $categories,
+        ]);
     }
 
     /**

@@ -20,9 +20,11 @@ class App
     }
 
     /**
-     * Run the application;
+     * Boot the application
+     * @param  RouteCollector $router
+     * @return void
      */
-    public function boot($router)
+    public function boot(RouteCollector $router)
     {
         session_start();
 
@@ -32,6 +34,8 @@ class App
 		// Require the routes
 		require(__DIR__ . '/../routes.php');
 
+        // Task runner
+        require(__DIR__ . '/../task.php');
 		// Run the dispatcher
         $dispatcher = new Dispatcher($router->getData());
 		$response = $dispatcher->dispatch($this->requestMethod, $this->url);

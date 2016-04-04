@@ -1,6 +1,3 @@
-<?php include(__DIR__ . '/../partials/header.php') ?>
-<?php include(__DIR__ . '/../partials/navbar.php') ?>
-
 <div class="container">
     <?php flashMessage('warning') ?>
 
@@ -30,10 +27,11 @@
                           <input type="number" class="form-control" name="pounds" placeholder="Pounds">
                           <div class="input-group-addon">.</div>
                           <input type="number" class="form-control" name="pence" placeholder="Pence" max="99">
-
+                          <span class="input-group-btn">
+                            <button type="submit" class="btn btn-primary">Add funds</button>
+                          </span>
                         </div>
                       </div>
-                      <button type="submit" class="btn btn-primary">Add funds</button>
                     </form>
                 </section>
                 <section class="col-md-6">
@@ -41,13 +39,15 @@
                     <form class="form-inline" action="/account/withdrawfunds" method="post">
                       <div class="form-group">
                         <div class="input-group">
-                            <div class="input-group-addon">£</div>
+                            <span class="input-group-addon">£</span>
                             <input type="number" class="form-control" name="pounds" placeholder="Pounds">
-                            <div class="input-group-addon">.</div>
+                            <span class="input-group-addon">.</span>
                             <input type="number" class="form-control" name="pence" placeholder="Pence" max="99">
+                            <span class="input-group-btn">
+                                <button type="submit" class="btn btn-primary">Withdraw funds</button>
+                            </span>
                         </div>
                       </div>
-                      <button type="submit" class="btn btn-primary">Withdraw funds</button>
                     </form>
                 </section>
             </div>
@@ -59,8 +59,8 @@
         </div>
 
     </div>
+    <!-- Your listings panel -->
     <div class="panel">
-
         <div class="panel-heading">
             <div class="row">
                 <div class="col-sm-8">
@@ -90,6 +90,14 @@
                                 <textarea class="form-control" name="description" placeholder="Listing description" rows="2" required></textarea>
                             </div>
                             <div class="form-group">
+                                <label for="Category">Category:</label>
+                                <select class="form-control" name="category_id">
+                                    <?php foreach ($categories as $category) {
+                                        echo '<option value="' . $category['id']. '">' . $category['name'] . '</option>';
+                                    } ?>
+                                </select>
+                            </div>
+                            <div class="form-group">
                                 <label class="file">
                                     Image
                                 </label>
@@ -112,9 +120,9 @@
                                 <div class="form-group">
                                     <label>Price</label>
                                     <div class="input-group">
-                                        <div class="input-group-addon">£</div>
+                                        <span class="input-group-addon">£</span>
                                         <input type="number" class="form-control" name="pounds" placeholder="Pounds">
-                                        <div class="input-group-addon">.</div>
+                                        <span class="input-group-addon">.</span>
                                         <input type="number" class="form-control" name="pence" placeholder="Pence" max="99">
                                     </div>
                                 </div>
@@ -149,7 +157,6 @@
                 <tr>
                     <td>
                         <a href="/listings/<?php echo $listing['slug'] ?>" target="_blank"><?php echo $listing['name'] ?></a>
-
                     </td>
                     <td>
                         £<?php echo number_format($listing['price'] / 100, 2) ?>
@@ -196,7 +203,44 @@
             </table>
         </div>
     </div>
+
+    <!-- Your orders -->
+    <div class="panel">
+        <div class="panel-heading">
+            <h2>Your Orders</h2>
+        </div>
+        <div class="panel-body">
+            <?php
+            if (count($orders))
+            { ?>
+                <table class="table">
+                    <thead>
+                       <tr>
+                         <th>Item</th>
+                         <th>Status</th>
+                         <th>Created At</th>
+                       </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($orders as $order): ?>
+                            <tr>
+                                <td>
+                                    <a href="/listings/<?php echo $order['listing']['slug'] ?>" target="_blank"><?php echo $order['listing']['name'] ?></a>
+                                </td>
+                                <td>
+                                    <?php echo $order['status'] ?>
+                                </td>
+                                <td>
+                                    <?php echo $order['created_at'] ?>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            <?php } else { ?>
+                <p>You have no orders at this time.</p>
+            <?php } ?>
+
+        </div>
+    </div>
 </div>
-
-
-<?php include(__DIR__ . '/../partials/footer.php') ?>

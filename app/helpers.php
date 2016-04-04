@@ -95,3 +95,38 @@ function slugify($text)
 
   return $text;
 }
+
+/**
+ * A bunch of checks for the order process that are used on multiple routes
+ * @param  array $listing
+ * @param  array $user
+ * @return void
+ */
+function orderChecks($listing, $user)
+{
+	if (!$listing)
+	{
+		throw new Phroute\Phroute\Exception\HttpRouteNotFoundException('404', 1);
+	}
+
+	if ($user['credit'] < $listing['price'])
+	{
+		flash("You don't have enough credit on your account to buy this item.");
+		redirect("/listings/" . $listing['slug']);
+		die();
+	}
+
+	if ($user['id'] == $listing['user_id'])
+	{		
+		flash("You cannot purchase your own item.");
+		redirect("/listings/" . $listing['slug']);
+		die();
+	}
+
+	if(count($listing['order']) == 6)
+	{
+		flash("This item is not available to order at this time.");
+		redirect("/listings/" . $listing['slug']);
+		die();
+	}
+}

@@ -6,7 +6,9 @@ use App\Views\View;
 use App\Services\Request;
 use App\Services\File;
 use App\Models\User;
+use App\Models\Order;
 use App\Models\Listing;
+use App\Models\Category;
 
 class AccountController
 {
@@ -19,13 +21,23 @@ class AccountController
         $user = user();
 
         $listings = Listing::getUserListings($user);
-        // Sort the array
+        $orders = Order::getUserOrders($user);
+
+        // Sort the arrays
         usort($listings, function ($a1, $a2) {
             $v1 = strtotime($a1['created_at']);
             $v2 = strtotime($a2['created_at']);
             return $v1 - $v2;
         });
-        return View::render('/pages/account', ['user' => $user, 'listings' => $listings]);
+
+        $categories = Category::getAll();
+
+        return View::render('/pages/account', [
+            'user' => $user,
+            'listings' => $listings,
+            'orders' => $orders,
+            'categories' => $categories
+        ]);
     }
 
     public function postAddfunds()
@@ -47,17 +59,27 @@ class AccountController
 
     public function postWithdrawfunds()
     {
+        // Get the value the user wants to withdraw
         $request = new Request();
         $value = ($request->post('pounds') * 100) + $request->post('pence');
+
         $user = user();
+
         if ($value > 0){
-            User::updateCredit($user['id'], '-', $value);
-            flash('Your credit has been withdrawn!');
+            // Check the user has enough credit to withdraw this
+            if ($user['credit'] - $value < 0)
+            {
+                flash('You do not have enough credit in your account to withdraw this amount. Please try again.');
+            }
+            else
+            {
+                User::updateCredit($user['id'], '-', $value);
+                flash('Your credit has been withdrawn!');
+            }
         }
         else
         {
             flash('Your credit has not been withdrawn because you entered a negative value. Please try again.');
-
         }
         redirect('/account/');
     }
@@ -72,6 +94,7 @@ class AccountController
         $params['name'] = $request->post('name');
         $params['slug'] = slugify($request->post('name'));
         $params['description'] = $request->post('description');
+        $params['category_id'] = $request->post('category_id');
         $params['price'] = $request->post('pounds') * 100 + $request->post('pence');
 
         if($params['price'] < 0 || $request->post('pence') < 0) {
@@ -92,7 +115,7 @@ class AccountController
         // }
         // else if ($imageType == 'image-url')
         // {
-            $params['img_path'] = $request->post('image-url');
+        $params['img_path'] = $request->post('image-url');
         // }
 
         $params['img_path'] = $request->post('image-url');
@@ -103,7 +126,7 @@ class AccountController
             if ($p == "")
             {
                 flash('Your listing creation failed, there was an emptry field. Please try again.');
-                retdirect('/account/');
+                redirect('/account/');
             }
         }
 

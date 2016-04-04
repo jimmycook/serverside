@@ -61,7 +61,13 @@ class Database
         }
     }
 
-    public function query($query, $params = [])
+    /**
+     * Run an sql query
+     * @param  string $query
+     * @param  array  $params
+     * @return array
+     */
+    public function query(string $query, array $params = [])
     {
         $statement = $this->pdo->prepare($query);
         $result = $statement->execute($params);

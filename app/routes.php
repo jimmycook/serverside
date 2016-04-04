@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Listing;
+use App\Models\Category;
 use App\Models\Order;
 use App\Models\User;
 use App\Services\Auth;
@@ -16,6 +17,7 @@ $router->controller('account', 'App\\Controllers\\AccountController', ['before' 
 
 /**
  * Show a specific listing
+ * @return string
  */
 $router->get('listings/{slug:c}', function ($slug) {
     $listing = Listing::findSlug($slug);
@@ -32,19 +34,76 @@ $router->get('listings/{slug:c}', function ($slug) {
 });
 
 /**
- * Start the order process
+ * Show a specific category
+ * @return string
  */
-$router->post('listings/{slug:c}', function ($slug) {
+$router->get('category/{slug:c}', function ($slug) {
+    $category = Category::findSlug($slug);
 
-    if (!check())
+    if (!$category)
     {
-        flashURL("listings/$slug");
-        redirect('/login');
+        throw new Phroute\Phroute\Exception\HttpRouteNotFoundException('404', 1);
     }
+
+    return View::render('pages/category', ['category' => $category]);
 });
 
 
-// Routes at the /api/* uri
+// Auth Check routes
+$router->group(['before' => 'check'], function($router) {
+
+    /**
+     * Start the order process
+     * @return view
+     */
+    $router->get('listings/order/{slug:c}', function ($slug) {
+        $listing = Listing::findSlug($slug);
+        $user = user();
+        orderChecks($listing, $user);
+
+        $params = [];
+        $params['user'] = $user;
+        $params['listing'] = $listing;
+
+        return View::render('pages/order', $params);
+    });
+
+    /**
+     * Finish the order
+     */
+    $router->post('listings/order/{slug:c}', function ($slug) {
+
+        $request = new Request;
+        $listing = Listing::findSlug($slug);
+        $user = user();
+
+        orderChecks($listing, $user);
+
+        $params = [];
+        $params['address'] = $request->post('address');
+        $params['user_id'] = $user['id'];
+        $params['listing_id'] = $listing['id'];
+        $params['status'] = 'processing';
+
+        if (Order::create($params))
+        {
+            User::charge($user['id'], $listing['price']);
+            flash("Your order was created successfully, view it below.");
+            redirect("/account/");
+            die();
+        }
+        else
+        {
+            flash("Something went wrong, please try again.");
+            redirect("/listings/" . $listing['slug']);
+            die();
+        }
+
+    });
+
+});
+
+// Routes at the /api/* uri, mostly for AJAX related actions on the site
 $router->group(['prefix' => 'api'], function($router){
 
     // Get the listing details from the API
@@ -85,4 +144,9 @@ $router->group(['prefix' => 'api'], function($router){
         return Order::cancel($request->post('id'));
     });
 
+});
+
+$router->any('test', function() {
+
+    return Order::create($params);
 });
