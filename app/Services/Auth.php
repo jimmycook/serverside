@@ -8,7 +8,13 @@ use App\Services\Auth;
 class Auth
 {
 
-    public static function login($username, $password)
+    /**
+     * Log a user in
+     * @param  string $username
+     * @param  string $password
+     * @return boolean
+     */
+    public static function login(string $username, string $password)
     {
         $user = User::getByUsername($username, $password);
 
@@ -25,6 +31,10 @@ class Auth
 
     }
 
+    /**
+     * Check if somebody is logged in
+     * @return boolean
+     */
     public static function check()
     {
         if (Session::get('authenticated_user'))
@@ -34,14 +44,24 @@ class Auth
         return false;
     }
 
+    /**
+     * Get the logged in user array
+     * @return array|boolean
+     */
     public static function user()
     {
         if (Session::get('authenticated_user'))
         {
             return User::find(Session::get('authenticated_user'));
         }
+        return false;
     }
 
+    /**
+     * Set the logged in user
+     * @param array $user
+     * @return void
+     */
     private static function setLoggedIn($user)
     {
         if (isset($user['id']))
@@ -50,6 +70,10 @@ class Auth
         }
     }
 
+    /**
+     * Log a user out
+     * @return void
+     */
     public static function logout()
     {
         if (Session::get('authenticated_user'))

@@ -44,11 +44,20 @@ function flash($message)
 	App\Services\Session::set('flash_message', $message);
 }
 
+/**
+ * flash a url
+ * @param  string $url [description]
+ * @return void
+ */
 function flashURL($url)
 {
 	App\Services\Session::set('flash_url', $url);
 }
 
+/**
+ * Redirect to a flashed url if it exists
+ * @return boolean|void
+ */
 function goToFlashUrl()
 {
 	if ($url = App\Services\Session::get('flash_url'))
@@ -63,11 +72,21 @@ function goToFlashUrl()
 	}
 }
 
+/**
+ * Redirects
+ * @param  string $to
+ * @return void
+ */
 function redirect($to)
 {
 	header('Location: ' . $to);
 }
 
+/**
+ * Turn a string into a slug
+ * @param  string $text
+ * @return string
+ */
 function slugify($text)
 {
   // replace non letter or digits by -
@@ -117,13 +136,13 @@ function orderChecks($listing, $user)
 	}
 
 	if ($user['id'] == $listing['user_id'])
-	{		
+	{
 		flash("You cannot purchase your own item.");
 		redirect("/listings/" . $listing['slug']);
 		die();
 	}
 
-	if(count($listing['order']) == 6)
+	if(count($listing['order']) == 6 && $listing['order']['status'] != 'cancelled' )
 	{
 		flash("This item is not available to order at this time.");
 		redirect("/listings/" . $listing['slug']);

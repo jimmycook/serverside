@@ -148,7 +148,8 @@
                      <th>Item Name</th>
                      <th>Price</th>
                      <th>Billed Until</th>
-                     <th>Action</th>
+                     <th>Actions</th>
+                     <th>Activation</th>
                    </tr>
                 </thead>
             <tbody>
@@ -165,19 +166,22 @@
                         <?php echo $listing['paid_until'] ?>
 
                     </td>
-                    <?php if ($listing['order']['status'] == 'completed'): ?>
-                        <td>
+                    <td>
+                        <?php if ($listing['order']['status'] == 'completed'): ?>
                             <button class="btn btn-success listing-utility" data-status="completed" name="info" data-listing="<?php echo $listing['slug']?>">Order Information</button>
-                        </td>
-                    <?php elseif ($listing['order']['status'] == 'processing'): ?>
-                        <td>
+                        <?php elseif ($listing['order']['status'] == 'processing'): ?>
                             <button class="btn btn-primary listing-utility" data-status="processing" name="info" data-listing="<?php echo $listing['slug']?>">Order Information</button>
-                        </td>
-                    <?php else: ?>
-                        <td>
+                        <?php else: ?>
                             <button class="btn btn-danger listing-utility" data-status="none" name="delete" data-listing="<?php echo $listing['slug']?>">Delete</button>
-                        </td>
-                    <?php endif; ?>
+                        <?php endif; ?>
+                    </td>
+                    <td>
+                        <?php if (!$listing['active']): ?>
+                            <button class="btn btn-info listing-utility" data-status="activate" name="reactivate" data-listing="<?php echo $listing['slug']?>">Reactivate</button>
+                        <?php else: ?>
+                            <button class="btn btn-warning listing-utility" data-status="deactivate" name="deactivate" data-listing="<?php echo $listing['slug']?>">Deactivate</button>
+                        <?php endif; ?>
+                    </td>
                 </tr>
                 <?php endforeach; ?>
             </tbody>

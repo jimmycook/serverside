@@ -1,9 +1,20 @@
 <div class="container">
     <?php
-    $category = $recent;
-    require(__DIR__ . '/../partials/category.php');
-    foreach ($categories as $category) {
+
+    if ($recent)
+    {
+        $category = $recent;
         require(__DIR__ . '/../partials/category.php');
+    }
+
+    $showLink = true;
+
+    foreach ($categories as $category)
+    {
+        if (count($category))
+        {
+            require(__DIR__ . '/../partials/category.php');
+        }
     }
      ?>
 </div>

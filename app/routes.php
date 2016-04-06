@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Services\Auth;
 use App\Services\Database;
 use App\Services\Password;
+use App\Services\Paginator;
 use App\Services\Request;
 use App\Services\Session;
 use App\Views\View;
@@ -45,7 +46,12 @@ $router->get('category/{slug:c}', function ($slug) {
         throw new Phroute\Phroute\Exception\HttpRouteNotFoundException('404', 1);
     }
 
-    return View::render('pages/category', ['category' => $category]);
+    $paginator = new Paginator($category['listings']);
+    // Pagination
+    $category['listings'] = $paginator->getPageArray();
+    $page = $paginator->getPage();
+    $numPages = $paginator->getNumPages();
+    return View::render('pages/category', ['category' => $category, 'page' => $page, 'numPages' => $numPages]);
 });
 
 
@@ -87,7 +93,11 @@ $router->group(['before' => 'check'], function($router) {
 
         if (Order::create($params))
         {
-            User::charge($user['id'], $listing['price']);
+            $charged = User::charge($user['id'], $listing['price']);
+            if ($charged)
+            {
+                User::credit($listing['user_id'], $listing['price']);
+            }
             flash("Your order was created successfully, view it below.");
             redirect("/account/");
             die();
@@ -101,52 +111,97 @@ $router->group(['before' => 'check'], function($router) {
 
     });
 
-});
+    // Routes at the /api/* uri, mostly for AJAX related actions on the site
+    $router->group(['prefix' => 'api'], function($router){
 
-// Routes at the /api/* uri, mostly for AJAX related actions on the site
-$router->group(['prefix' => 'api'], function($router){
+        // Get the listing details from the API
+        $router->get('listings/{slug:c}', function ($slug) {
+            $listing = Listing::findSlug($slug);
 
-    // Get the listing details from the API
-    $router->get('listings/{slug:c}', function ($slug) {
-        $listing = Listing::findSlug($slug);
-
-        if (!$listing)
-        {
-            return false;
-        }
-
-        return json_encode($listing);
-    });
-
-    // Delete listings
-    $router->post('listing/delete', function () {
-        $request = new Request;
-
-        $listing = Listing::findSlug($request->post('slug'));
-        if ($listing && check())
-        {
-            $user = user();
-            if ($user['id'] == $listing['user_id'])
+            if (!$listing)
             {
-                return Listing::delete($listing['id']);
+                return false;
             }
-        }
-        return false;
-    });
 
-    $router->post('order/complete', function () {
-        $request = new Request;
-        return Order::complete($request->post('id'));
-    });
+            return json_encode($listing);
+        });
 
-    $router->post('order/cancel', function () {
-        $request = new Request;
-        return Order::cancel($request->post('id'));
+        // Delete listings
+        $router->post('listing/delete', function () {
+            $request = new Request;
+
+            $listing = Listing::findSlug($request->post('slug'));
+            if ($listing && check())
+            {
+                $user = user();
+                if ($user['id'] == $listing['user_id'])
+                {
+                    return Listing::delete($listing['id']);
+                }
+            }
+            return false;
+        });
+
+        // Activate listings
+        $router->post('listing/activate', function () {
+            $request = new Request;
+
+            $listing = Listing::findSlug($request->post('slug'));
+            if ($listing && check())
+            {
+                $user = user();
+                if ($user['id'] == $listing['user_id'])
+                {
+                    return Listing::activate($listing['id']);
+                }
+            }
+            return false;
+        });
+
+        // Activate listings
+        $router->post('listing/deactivate', function () {
+            $request = new Request;
+
+            $listing = Listing::findSlug($request->post('slug'));
+            if ($listing && check())
+            {
+                $user = user();
+                if ($user['id'] == $listing['user_id'])
+                {
+                    return Listing::deactivate($listing['id']);
+                }
+            }
+            return false;
+        });
+
+        $router->post('order/complete', function () {
+            $request = new Request;
+            $user = user();
+            $id = $request->post('id');
+            $order = Order::findWithListing($id);
+            // Check the user is correct
+            if ($user['id'] == $order['user_id'])
+            {
+                return Order::complete($id);
+            }
+        });
+
+        $router->post('order/cancel', function () {
+            $request = new Request;
+            $user = user();
+            $id = $request->post('id');
+            $order = Order::findWithListing($id);
+            // Check the user is correct
+            if ($user['id'] == $order['user_id'])
+            {
+                return Order::cancel($id);
+            }
+        });
+
     });
 
 });
 
 $router->any('test', function() {
-
-    return Order::create($params);
+    dd(Order::getForListing(9));
 });

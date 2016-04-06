@@ -5,7 +5,7 @@ namespace App\Models;
 use App\Services\Database;
 use App\Models\Listing;
 
-class Category
+class Category extends Model
 {
 
     protected static $table = 'categories';

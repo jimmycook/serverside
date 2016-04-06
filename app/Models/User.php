@@ -9,15 +9,12 @@ class User extends Model
 
     protected static $table = 'users';
 
-    public function __construct($attributes = [])
-    {
-        foreach($attributes as $key => $attri)
-        {
-            $this->{$key} = $attri;
-        }
-    }
-
-    public static function create($details)
+    /**
+     * Create a new user in the database
+     * @param  array  $details
+     * @return void
+     */
+    public static function create(array $details)
     {
         $query = "INSERT INTO " . self::$table ." VALUES
             (null, :username, :password, :first_name, :last_name, :email, :credit, :seller);";
@@ -25,13 +22,23 @@ class User extends Model
         $result = Database::getInstance()->query($query, $details);
     }
 
-    public static function usernameExists($username, $email)
+    /**
+     * Check a username within the system
+     * @param  string $username
+     * @param  string $email
+     * @return mixed
+     */
+    public static function usernameExists(string $username, string $email)
     {
         $query = "SELECT * FROM $this->table WHERE username = $username OR email = $email;";
         $database = Database::getInstance();
         return count($result);
     }
 
+    /**
+     * Get all users
+     * @return array|boolean
+     */
     public static function getAll()
     {
         $query = 'SELECT * FROM ' . self::$table;
@@ -42,10 +49,15 @@ class User extends Model
             return $result;
         }
 
-        return null;
+        return false;
     }
 
-    public static function find($id)
+    /**
+     * Find a user by their id
+     * @param  int $id
+     * @return array|boolean
+     */
+    public static function find(int $id)
     {
         $query = "SELECT * FROM " . self::$table . " WHERE id = $id;";
         $result = Database::getInstance()->query($query);
@@ -58,7 +70,13 @@ class User extends Model
         return false;
     }
 
-    public static function charge($id, $amount)
+    /**
+     * Charge a user
+     * @param  int    $id
+     * @param  int    $amount
+     * @return mixed
+     */
+    public static function charge(int $id, int $amount)
     {
         $user = self::find($id);
 
@@ -67,18 +85,25 @@ class User extends Model
         {
             // Check they can be charged
             $newCredit = $user['credit'] - $amount;
-            if ($newCredit > 0)
+            if ($newCredit >= 0)
             {
                 // Charge
                 $query = "UPDATE users SET credit = $newCredit WHERE id = :id";
                 $result = Database::getInstance()->query($query, ['id' => $id]);
+                return true;
             }
             return false;
         }
         return false;
     }
 
-    public static function credit($id, $amount)
+    /**
+     * Credit a user
+     * @param  int $id
+     * @param  int $amount
+     * @return boolean
+     */
+    public static function credit(int $id, int $amount)
     {
         $user = self::find($id);
 
@@ -92,7 +117,12 @@ class User extends Model
         return false;
     }
 
-    public static function refund($order)
+    /**
+     * Refund an order
+     * @param  array  $order
+     * @return mixed
+     */
+    public static function refund(array $order)
     {
         $user = self::find($order['user_id']);
         $listing = Listing::find($order['listing_id']);

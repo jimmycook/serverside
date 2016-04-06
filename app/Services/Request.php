@@ -4,7 +4,12 @@ namespace App\Services;
 
 class Request
 {
-    public function get($key)
+    /**
+     * Get a get variable
+     * @param  string $key
+     * @return mixed
+     */
+    public function get(string $key)
     {
         if(isset($_GET[$key]))
         {
@@ -12,7 +17,12 @@ class Request
         }
     }
 
-    public function post($key)
+    /**
+     * Get a post variable from the Request
+     * @param  string $key
+     * @return mixed
+     */
+    public function post(string $key)
     {
         if(isset($_POST[$key]))
         {

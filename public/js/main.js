@@ -25488,6 +25488,20 @@ $(".listing-utility").on('click', function () {
                 cancelButton.show();
                 button.show();
             }
+        } else if (listingStatus == 'activate') {
+            header.html('Are you sure?');
+            body.html("You are about to reactivate this listing, you will be charged £1 per day for this listing.");
+            button.removeClass();
+            button.addClass("btn btn-info");
+            button.show();
+            button.html("Activate");
+        } else if (listingStatus == 'deactivate') {
+            header.html('Are you sure?');
+            body.html("You are about to deactivate this listing, you will no longer be charged and the listing will not be available on the site.");
+            button.removeClass();
+            button.addClass("btn btn-warning");
+            button.show();
+            button.html("Deactivate");
         } else {
             header.html('Are you sure?');
             body.html("You are about to delete this listing, this action is not reverseable.");
@@ -25560,6 +25574,14 @@ $("#listing-modal-button").click(function () {
         });
     } else if (button.data('status') == 'none') {
         $.post('/api/listing/delete', { slug: button.data('listing') }, function (data) {
+            if (data) location.reload();else alert('This action could not be completed');
+        });
+    } else if (button.data('status') == 'activate') {
+        $.post('/api/listing/activate', { slug: button.data('listing') }, function (data) {
+            if (data) location.reload();else alert('This action could not be completed');
+        });
+    } else if (button.data('status') == 'deactivate') {
+        $.post('/api/listing/deactivate', { slug: button.data('listing') }, function (data) {
             if (data) location.reload();else alert('This action could not be completed');
         });
     }

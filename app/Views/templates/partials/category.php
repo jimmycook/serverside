@@ -16,9 +16,12 @@
                 <a href="/listings/<?php echo $listing['slug'] ?>"
                     data-toggle="tooltip"
                     title="<?php echo $listing['name']?>">
-                    <img class="img-responsive"
+                    <img class="guitar-thumbnail"
                     src="<?php echo $listing['img_path'] ?>"
                     alt="<?php echo $listing['name'] ?>" />
+                </a>
+                <a href="/listings/<?php echo $listing['slug'] ?>">
+                    <?php echo $listing['name'] ?>
                 </a>
             </div>
             <?php

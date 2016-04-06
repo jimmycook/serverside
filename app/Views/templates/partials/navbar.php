@@ -11,14 +11,7 @@
                     Categories
                 </a>
             </li>
-
-
             <?php if (check()): ?>
-            <li class="Menu__item">
-                <a href="/create">
-                    Create listing
-                </a>
-            </li>
             <li class="Menu__item">
                 <a href="/account">
                     Your Account

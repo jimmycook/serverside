@@ -2,17 +2,34 @@
 
 namespace App\Services;
 
-use SessionHandler;
-
 class Session
 {
 
-    public static function set($key, $value)
+    /**
+     * Start the session
+     * @return void
+     */
+    public static function start()
+    {
+        session_start();
+    }
+
+    /**
+     * Set a variable to the Session
+     * @param string $key
+     * @param string $value
+     */
+    public static function set(string $key, string $value)
     {
         $_SESSION[$key] = $value;
     }
 
-
+    /**
+     * Get an item from the session
+     * @param  string $key
+     * @param  mixed $default
+     * @return mixed
+     */
     public static function get($key, $default = false)
     {
         if(isset($_SESSION[$key]))
@@ -22,11 +39,20 @@ class Session
         return $default;
     }
 
-    public static function destroy($key)
+    /**
+     * Remove an item from the session
+     * @param  string $key
+     * @return mixed
+     */
+    public static function destroy(string $key)
     {
         unset($_SESSION[$key]);
     }
 
+    /**
+     * Destroy the session
+     * @return [type] [description]
+     */
     public static function destroyAll()
     {
         session_destroy();

@@ -8,10 +8,16 @@ class Order extends Model
 {
     protected static $table = 'orders';
 
-    public static function find($id)
+    public static function find($id, $include = false)
     {
-        $query = "SELECT * FROM " . self::$table . " WHERE id = $id;";
-        $result = Database::getInstance()->query($query);
+        if ($include)
+        {
+            $query = "SELECT * FROM " . self::$table . " WHERE id = :id";
+        }
+        else {
+            $query = "SELECT * FROM " . self::$table . " WHERE id = :id AND status NOT 'cancelled'";
+        }
+        $result = Database::getInstance()->query($query, ['id' => $id]);
 
         if(count($result))
         {
@@ -21,16 +27,23 @@ class Order extends Model
         return false;
     }
 
-    public static function getForListing($listingID)
+    public static function getForListing($listingID, $include = false)
     {
         $sql = 'SELECT * FROM orders WHERE listing_id = :listing_id';
+
         $result = Database::getInstance()->query($sql, ['listing_id' => $listingID]);
-        if($result){
-            return $result[0];
+
+        if (count($result) && is_array($result))
+        {
+            foreach ($result as $order)
+            {
+                if ($order['status'] != 'cancelled')
+                {
+                    return $order;
+                }
+            }
         }
-        else {
-            return false;
-        }
+        return false;
     }
 
     public static function complete($id)
@@ -48,14 +61,22 @@ class Order extends Model
 
     public static function cancel($id)
     {
-        $sql = "SELECT * FROM orders WHERE id = :id";
-        $result = Database::getInstance()->query($sql, ['id' => $id]);
+        $order = self::find($id);
+        if (is_array($order)) {
 
-        if (is_array($result)) {
-            $sql = "UPDATE orders SET status = 'cancelled' WHERE id = :id";
-            Database::getInstance()->query($sql, ['id' => $id]);
-            User::refund($result[0]);
-            return true;
+            $listing = Listing::find($order['listing_id']);
+
+            $charged = User::charge($listing['user_id'], $listing['price']);
+
+            // If the listing creator can be charged for the refund, cancel and refund
+            if ($charged)
+            {
+                User::refund($order);
+                $sql = "UPDATE orders SET status = 'cancelled' WHERE id = :id";
+                Database::getInstance()->query($sql, ['id' => $id]);
+                return true;
+            }
+            return false;
         }
         return false;
     }
@@ -96,6 +117,23 @@ class Order extends Model
         Database::getInstance()->query($query, $params);
 
         return true;
+    }
 
+    /**
+     * Get the listing for an order
+     * @param  int $id the listing id
+     * @return array
+     */
+    public static function findWithListing($id)
+    {
+        $query = 'SELECT * FROM orders INNER JOIN listings ON orders.listing_id = listings.id WHERE orders.id = :id';
+        $result = Database::getInstance()->query($query, ['id' => $id]);
+        return $result[0];
+    }
+
+    public static function deleteForListing($id)
+    {
+        $query = 'DELETE FROM orders WHERE listing_id = :id';
+        $result = Database::getInstance()->query($query, ['id' => $id]);
     }
 }

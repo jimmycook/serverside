@@ -38,6 +38,10 @@ class Database
         $this->connection = $this->getConnection();
     }
 
+    /**
+     * Set up the database connection object
+     * @return boolean
+     */
     private function getConnection()
     {
         $config = require __DIR__ . '/../../config/database.php';

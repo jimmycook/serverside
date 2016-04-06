@@ -20,8 +20,11 @@ class PagesController
     public function anyIndex()
     {
         $categories = Category::getAll();
-        $recent = Listing::getRecent();
-        //  @TODO fix this
+        $recentListings = Listing::getRecent();
+        $recent = [];
+        $recent['listings'] = $recentListings;
+        $recent['name'] = 'Recent Listings';
+
         foreach ($categories as $key => $category) {
             if (is_array($category['listings']))
             {

@@ -15,6 +15,8 @@
     },
     "require": {
         "phroute/phroute": "^2.1",
-        "maximebf/debugbar": "1.*"
+        "maximebf/debugbar": "1.*",
+        "nesbot/carbon": "^1.21",
+        "phpunit/phpunit": "^5.3"
     }
 }

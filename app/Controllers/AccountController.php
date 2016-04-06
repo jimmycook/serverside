@@ -22,13 +22,7 @@ class AccountController
 
         $listings = Listing::getUserListings($user);
         $orders = Order::getUserOrders($user);
-
-        // Sort the arrays
-        usort($listings, function ($a1, $a2) {
-            $v1 = strtotime($a1['created_at']);
-            $v2 = strtotime($a2['created_at']);
-            return $v1 - $v2;
-        });
+        
 
         $categories = Category::getAll();
 
@@ -40,6 +34,10 @@ class AccountController
         ]);
     }
 
+    /**
+     * Add funds form submission
+     * @return redirects
+     */
     public function postAddfunds()
     {
         $request = new Request();
@@ -57,6 +55,10 @@ class AccountController
         redirect('/account/');
     }
 
+    /**
+     * Withdraw funds form submission
+     * @return redirects
+     */
     public function postWithdrawfunds()
     {
         // Get the value the user wants to withdraw
@@ -84,6 +86,10 @@ class AccountController
         redirect('/account/');
     }
 
+    /**
+     * Create a listing form submission
+     * @return string|redirects
+     */
     public function postCreatelisting()
     {
         $request = new Request();

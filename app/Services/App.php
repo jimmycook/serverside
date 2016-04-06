@@ -26,7 +26,9 @@ class App
      */
     public function boot(RouteCollector $router)
     {
-        session_start();
+
+        // Start the session
+        Session::start();
 
         // Require any route filters
         require(__DIR__ . '/../filters.php');
@@ -36,6 +38,7 @@ class App
 
         // Task runner
         require(__DIR__ . '/../task.php');
+
 		// Run the dispatcher
         $dispatcher = new Dispatcher($router->getData());
 		$response = $dispatcher->dispatch($this->requestMethod, $this->url);

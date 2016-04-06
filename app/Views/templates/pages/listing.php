@@ -9,7 +9,7 @@
         <div class="panel-body">
             <div class="row">
                 <div class="col-md-3">
-                    <img src="<?php echo $listing['img_path'] ?>" alt="listing image" />
+                    <img class="guitar-thumbnail" src="<?php echo $listing['img_path'] ?>" alt="listing image" />
                 </div>
                 <div class="col-md-9">
                     <p><strong>Price: </strong>£<?php echo number_format($listing['price'] / 100, 2) ?></p>
@@ -22,7 +22,7 @@
                             echo '<input class="btn btn-disabled btn-lg" disabled type="submit" name="submit" value="You cannot buy your own item">';
                         } elseif (!check()) {
                             echo '<input class="btn btn-lg" type="submit" name="submit" value="Sign in to buy this item">';
-                        } elseif (count($listing['order']) == 6) {
+                        } elseif (count($listing['order']) == 6 && $listing['order']['status'] != 'cancelled') {
                             echo '<button class="btn btn-lg btn-disabled" disabled>This item is not available at this time</button>';
                         } elseif (check()) {
                             echo '<input class="btn btn-primary btn-lg" type="submit" name="submit" value="Buy This Item">';
