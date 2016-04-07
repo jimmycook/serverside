@@ -1,4 +1,8 @@
 <?php
+
+use Phroute\Phroute\Exception\HttpRouteNotFoundException;
+use Phroute\Phroute\RouteCollector;
+
 // Require the autoloader
 require __DIR__ . '/../vendor/autoload.php';
 
@@ -14,10 +18,9 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 try {
-    $router = new Phroute\Phroute\RouteCollector;
-
+    $router = new RouteCollector;
     $app->boot($router);
-} catch (Phroute\Phroute\Exception\HttpRouteNotFoundException $e) {
+} catch (HttpRouteNotFoundException $e) {
     // Route wasn't found so call the not found
     $app->notFound();
 } catch (Exception $e) {

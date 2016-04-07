@@ -47,7 +47,7 @@ class App
     }
 
     /**
-     * Draw the 404 error page
+     * 404 Error
      * @return void
      */
     public function notFound()
