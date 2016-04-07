@@ -7,7 +7,7 @@
     <div class="Menu">
         <ul class="Menu__items">
             <li class="Menu__item">
-                <a href="/categories">
+                <a href="/category">
                     Categories
                 </a>
             </li>

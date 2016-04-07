@@ -43,7 +43,7 @@ class PagesController
      * server the categories page
      * @return string view
      */
-    public function anyCategories()
+    public function anyCategory()
     {
         $categories = Category::getAll();
 

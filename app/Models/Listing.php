@@ -158,7 +158,9 @@ class Listing extends Model
             $query = 'SELECT * FROM ' . self::$table . ' WHERE active = true ORDER BY created_at LIMIT 4';
         }
 
-        return Database::getInstance()->query($query);
+        $result =  Database::getInstance()->query($query);
+
+        return self::filterSold($result);
     }
 
     /**
@@ -190,7 +192,9 @@ class Listing extends Model
             $query = 'SELECT * FROM ' . self::$table . ' WHERE category_id = :category_id AND active = true';
         }
 
-        return Database::getInstance()->query($query, ['category_id' => $id]);
+        $result =  Database::getInstance()->query($query, ['category_id' => $id]);
+
+        return self::filterSold($result);
     }
 
     /**
@@ -201,6 +205,32 @@ class Listing extends Model
     {
         $query = "UPDATE ".self::$table." SET paid_until = :date WHERE id = :id";
         return Database::getInstance()->query($query, ['id' => $id, 'date' => $date->__toString()]);
+    }
+
+    /**
+     * Filter out sold listings
+     * @param  array $result
+     * @return array
+     */
+    public static function filterSold($result)
+    {
+        if (count($result) && is_array($result))
+        {
+            foreach ($result as $key => $listing)
+            {
+                if (is_array(Order::getForListing($listing['id'])))
+                {
+                    unset($result[$key]);
+                }
+            }
+        }
+
+        if (count($result))
+        {
+            return $result;
+        }
+
+        return false;
     }
 
 }

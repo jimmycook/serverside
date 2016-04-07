@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\User;
+use App\Models\Order;
 use App\Models\Listing;
 use Carbon\Carbon;
 
@@ -35,6 +36,13 @@ class Biller
      */
     public function bill(array $listing, array $user)
     {
+        // Check there are no active orders for this item, if there are stop billing the user
+        if (Order::getForListing($listing['id']))
+        {
+            $this->timestamp($listing);
+            return;
+        }
+
         $paidUntil = Carbon::parse($listing['paid_until'])->setTime(0, 0, 0);
 
         $days = $paidUntil->diffInDays(Carbon::now()->addDay());
@@ -45,7 +53,7 @@ class Biller
 
             if ($charged)
             {
-                Listing::setPaidUntil($listing['id'], Carbon::now()->addDay()->setTime(0, 0, 0));
+                $this->timestamp($listing, Carbon::now()->addDay()->setTime(0, 0, 0));
             }
             else
             {
@@ -69,7 +77,7 @@ class Biller
 
         // Get all this listings
         $listings = Listing::getAll(false);
-
+;
         foreach ($listings as $listing)
         {
             if ($listing['active'])
@@ -79,11 +87,7 @@ class Biller
             }
             else
             {
-                // Set paid until to now if it hasn't already been billed past now
-                if (Carbon::parse($listing['paid_until'])->lt(Carbon::now()))
-                {
-                    Listing::setPaidUntil($listing['id'], Carbon::now());
-                }
+                $this->timestamp($listing);
             }
         }
 
@@ -111,12 +115,22 @@ class Biller
     }
 
     /**
-     * Flush out the cookie
+     * Set the timestamp on a listing
+     * @param  [type] $listing
+     * @param  Carbon\Carbon $timestamp
      * @return void
      */
-    public function flushCookie()
+    public function timestamp($listing, Carbon $timestamp = null)
     {
+        if ($timestamp == null)
+        {
+            $timestamp = Carbon::now();
+        }
 
+        if (Carbon::parse($listing['paid_until'])->lt($timestamp))
+        {
+            Listing::setPaidUntil($listing['id'], $timestamp);
+        }
     }
 
 }

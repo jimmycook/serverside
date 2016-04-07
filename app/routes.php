@@ -22,7 +22,6 @@ $router->controller('account', 'App\\Controllers\\AccountController', ['before' 
  */
 $router->get('listings/{slug:c}', function ($slug) {
     $listing = Listing::findSlug($slug);
-
     if (!$listing)
     {
         throw new Phroute\Phroute\Exception\HttpRouteNotFoundException('404', 1);
@@ -40,14 +39,14 @@ $router->get('listings/{slug:c}', function ($slug) {
  */
 $router->get('category/{slug:c}', function ($slug) {
     $category = Category::findSlug($slug);
-
+    
     if (!$category)
     {
         throw new Phroute\Phroute\Exception\HttpRouteNotFoundException('404', 1);
     }
 
-    $paginator = new Paginator($category['listings']);
     // Pagination
+    $paginator = new Paginator($category['listings']);
     $category['listings'] = $paginator->getPageArray();
     $page = $paginator->getPage();
     $numPages = $paginator->getNumPages();
