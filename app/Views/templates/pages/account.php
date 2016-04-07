@@ -137,7 +137,7 @@
         </div><!-- /.modal -->
         <div class="panel-body">
             <p>
-                It costs £1 a day to host a listing for an item on the site. You will be billed automatically. Your credit can go into the negative from this so please remember to top up your account.
+                It costs £1 a day to host a listing for an item on the site. You will be billed automatically. If you don't have enough credit, your liting will be deactivated, you will then have to manually reactivate your listing and your billing will resume.
             </p>
         <?php
         if (count($listings)):
@@ -147,7 +147,6 @@
                    <tr>
                      <th>Item Name</th>
                      <th>Price</th>
-                     <th>Billed Until</th>
                      <th>Actions</th>
                      <th>Activation</th>
                    </tr>
@@ -161,10 +160,6 @@
                     </td>
                     <td>
                         £<?php echo number_format($listing['price'] / 100, 2) ?>
-                    </td>
-                    <td>
-                        <?php echo $listing['paid_until'] ?>
-
                     </td>
                     <td>
                         <?php if ($listing['order']['status'] == 'completed'): ?>
