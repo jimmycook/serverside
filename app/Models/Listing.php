@@ -44,7 +44,7 @@ class Listing extends Model
      * @param  string $slug
      * @return mixed
      */
-    public static function findSlug(string $slug, $activeOnly = true)
+    public static function findSlug($slug, $activeOnly = true)
     {
         $query = 'SELECT * FROM listings WHERE slug = :slug';
         $result = Database::getInstance()->query($query, ['slug' => $slug]);
@@ -68,7 +68,7 @@ class Listing extends Model
      * @param  array $params
      * @return boolean
      */
-    public static function create(array $params)
+    public static function create($params)
     {
         $now = date("Y-m-d H:i:s");
         $query = "INSERT INTO " . self::$table . "(id, user_id, created_at, paid_until, name, slug, description, price, img_path, category_id, active)
@@ -83,7 +83,7 @@ class Listing extends Model
      * @param  int $id
      * @return boolean
      */
-    public static function delete(int $id)
+    public static function delete($id)
     {
         Order::deleteForListing($id);
         $sql = 'DELETE FROM ' . self::$table . ' WHERE id = :id';
@@ -96,7 +96,7 @@ class Listing extends Model
      * @param  int $id
      * @return boolean
      */
-    public static function activate(int $id)
+    public static function activate($id)
     {
         $sql = 'UPDATE ' . self::$table . ' SET active = true WHERE id = :id';
         $result = Database::getInstance()->query($sql, ['id' => $id]);
@@ -108,7 +108,7 @@ class Listing extends Model
      * @param  int $id
      * @return boolean
      */
-    public static function deactivate(int $id)
+    public static function deactivate($id)
     {
         $sql = 'UPDATE ' . self::$table . ' SET active = false WHERE id = :id';
         $result = Database::getInstance()->query($sql, ['id' => $id]);
@@ -121,7 +121,7 @@ class Listing extends Model
      * @param boolean $activeOnly
      * @return array
      */
-    public static function getUserListings(array $user, $activeOnly = false)
+    public static function getUserListings($user, $activeOnly = false)
     {
         if (user() == $user) {
             $query = 'SELECT * FROM ' . self::$table . ' WHERE user_id = :user_id ORDER BY created_at';
@@ -184,7 +184,7 @@ class Listing extends Model
      * @param boolean $activeOnly
      * @return mixed
      */
-    public static function getForCategory(int $id, $activeOnly = true)
+    public static function getForCategory($id, $activeOnly = true)
     {
         $query = 'SELECT * FROM ' . self::$table . ' WHERE category_id = :category_id';
         if ($activeOnly)
@@ -201,7 +201,7 @@ class Listing extends Model
      * Set the paid until date
      * @param Carbon $date
      */
-    public static function setPaidUntil(int $id, Carbon $date)
+    public static function setPaidUntil($id, Carbon $date)
     {
         $query = "UPDATE ".self::$table." SET paid_until = :date WHERE id = :id";
         return Database::getInstance()->query($query, ['id' => $id, 'date' => $date->__toString()]);

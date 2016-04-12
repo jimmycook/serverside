@@ -15,7 +15,7 @@ class Category extends Model
      * @param  int    $id
      * @return mixed
      */
-    public static function find(int $id)
+    public static function find($id)
     {
         $query = "SELECT * FROM " . self::$table . " WHERE id = :id;";
         $result = Database::getInstance()->query($query, ['id' => $id]);
@@ -49,7 +49,7 @@ class Category extends Model
      * @param  string $slug
      * @return mixed|null
      */
-    public static function findSlug(string $slug)
+    public static function findSlug($slug)
     {
         $query = "SELECT * FROM " . self::$table . " WHERE slug = :slug;";
         $result = Database::getInstance()->query($query, ['slug' => $slug]);

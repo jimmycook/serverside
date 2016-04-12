@@ -81,7 +81,7 @@ class Order extends Model
         return false;
     }
 
-    public static function getUserOrders(array $user)
+    public static function getUserOrders($user)
     {
         if (user() == $user) {
             $query = 'SELECT * FROM orders WHERE user_id = :user_id';

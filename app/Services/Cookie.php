@@ -12,7 +12,7 @@ class Cookie
      * @param mixed $value
      * @param Carbon\Carbon $time
      */
-    public static function set(string $name, $value, Carbon $time = null)
+    public static function set($name, $value, Carbon $time = null)
     {
         if (is_null($time))
         {
@@ -27,7 +27,7 @@ class Cookie
      * @param  string $name
      * @return mixed
      */
-    public static function get(string $name)
+    public static function get($name)
     {
         if (isset($_COOKIE[$name]))
         {

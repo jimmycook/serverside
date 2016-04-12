@@ -19,7 +19,7 @@ class Session
      * @param string $key
      * @param string $value
      */
-    public static function set(string $key, string $value)
+    public static function set($key, $value)
     {
         $_SESSION[$key] = $value;
     }
@@ -44,7 +44,7 @@ class Session
      * @param  string $key
      * @return mixed
      */
-    public static function destroy(string $key)
+    public static function destroy($key)
     {
         unset($_SESSION[$key]);
     }

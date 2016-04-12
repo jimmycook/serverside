@@ -71,7 +71,7 @@ class Database
      * @param  array  $params
      * @return array
      */
-    public function query(string $query, array $params = [])
+    public function query($query, $params = [])
     {
         $statement = $this->pdo->prepare($query);
         $result = $statement->execute($params);

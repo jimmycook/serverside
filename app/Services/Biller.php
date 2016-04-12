@@ -34,7 +34,7 @@ class Biller
      * @param  array $user
      * @return boolean
      */
-    public function bill(array $listing, array $user)
+    public function bill($listing, $user)
     {
         // Check there are no active orders for this item, if there are stop billing the user
         if (Order::getForListing($listing['id']))

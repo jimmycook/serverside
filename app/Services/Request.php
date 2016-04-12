@@ -9,7 +9,7 @@ class Request
      * @param  string $key
      * @return mixed
      */
-    public function get(string $key)
+    public function get($key)
     {
         if(isset($_GET[$key]))
         {
@@ -22,7 +22,7 @@ class Request
      * @param  string $key
      * @return mixed
      */
-    public function post(string $key)
+    public function post($key)
     {
         if(isset($_POST[$key]))
         {

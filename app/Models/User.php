@@ -14,7 +14,7 @@ class User extends Model
      * @param  array  $details
      * @return void
      */
-    public static function create(array $details)
+    public static function create($details)
     {
         $query = "INSERT INTO " . self::$table ." VALUES
             (null, :username, :password, :first_name, :last_name, :email, :credit, :seller);";
@@ -28,7 +28,7 @@ class User extends Model
      * @param  string $email
      * @return mixed
      */
-    public static function usernameExists(string $username, string $email)
+    public static function usernameExists($username, $email)
     {
         $query = "SELECT * FROM $this->table WHERE username = $username OR email = $email;";
         $database = Database::getInstance();
@@ -57,7 +57,7 @@ class User extends Model
      * @param  int $id
      * @return array|boolean
      */
-    public static function find(int $id)
+    public static function find($id)
     {
         $query = "SELECT * FROM " . self::$table . " WHERE id = $id;";
         $result = Database::getInstance()->query($query);
@@ -76,7 +76,7 @@ class User extends Model
      * @param  int    $amount
      * @return mixed
      */
-    public static function charge(int $id, int $amount)
+    public static function charge($id, $amount)
     {
         $user = self::find($id);
 
@@ -103,7 +103,7 @@ class User extends Model
      * @param  int $amount
      * @return boolean
      */
-    public static function credit(int $id, int $amount)
+    public static function credit($id, $amount)
     {
         $user = self::find($id);
 
@@ -122,7 +122,7 @@ class User extends Model
      * @param  array  $order
      * @return mixed
      */
-    public static function refund(array $order)
+    public static function refund($order)
     {
         $user = self::find($order['user_id']);
         $listing = Listing::find($order['listing_id']);

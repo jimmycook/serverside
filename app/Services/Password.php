@@ -9,7 +9,7 @@ class Password
      * @param  string $password
      * @return string
      */
-    public static function hash(string $password)
+    public static function hash($password)
     {
         return password_hash($password, PASSWORD_DEFAULT);
     }
@@ -18,9 +18,9 @@ class Password
      * Check a password
      * @param  string $password
      * @param  string $hash
-     * @return boolean 
+     * @return boolean
      */
-    public static function check(string $password, string $hash)
+    public static function check($password, $hash)
     {
         return password_verify($password, $hash);
     }

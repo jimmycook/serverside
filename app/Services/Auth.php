@@ -14,7 +14,7 @@ class Auth
      * @param  string $password
      * @return boolean
      */
-    public static function login(string $username, string $password)
+    public static function login($username, $password)
     {
         $user = User::getByUsername($username, $password);
 
