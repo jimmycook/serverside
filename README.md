@@ -20,8 +20,6 @@ npm install
 
 To set up, create a database table and store the details in /config/database.php in the following form. Currently this application only supports mysql.
 
-Import the database into mysql from the db.sql file included.
-
 ```php
 <?php
 // Setup your database connection here
@@ -36,3 +34,5 @@ return [
     ],
 ];
 ```
+
+Then import the database into mysql from the db.sql file included.

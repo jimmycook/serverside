@@ -39,7 +39,7 @@ $router->get('listings/{slug:c}', function ($slug) {
  */
 $router->get('category/{slug:c}', function ($slug) {
     $category = Category::findSlug($slug);
-    
+
     if (!$category)
     {
         throw new Phroute\Phroute\Exception\HttpRouteNotFoundException('404', 1);
@@ -199,8 +199,4 @@ $router->group(['before' => 'check'], function($router) {
 
     });
 
-});
-
-$router->any('test', function() {
-    dd(Order::getForListing(9));
 });
