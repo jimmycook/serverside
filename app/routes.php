@@ -198,5 +198,4 @@ $router->group(['before' => 'check'], function($router) {
         });
 
     });
-
 });
