@@ -190,11 +190,7 @@ $router->group(['before' => 'check'], function($router) {
             $user = user();
             $id = $request->post('id');
             $order = Order::findWithListing($id);
-            // Check the user is correct
-            if ($user['id'] == $order['user_id'])
-            {
-                return Order::cancel($id);
-            }
+            return Order::cancel($id);
         });
 
     });

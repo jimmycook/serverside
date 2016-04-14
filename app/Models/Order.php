@@ -61,7 +61,7 @@ class Order extends Model
 
     public static function cancel($id)
     {
-        $order = self::find($id);
+        $order = self::find($id, true);                
         if (is_array($order)) {
 
             $listing = Listing::find($order['listing_id']);
