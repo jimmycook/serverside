@@ -7,7 +7,7 @@
 #
 # Host: localhost (MySQL 5.5.42)
 # Database: serverside
-# Generation Time: 2016-04-06 17:28:28 +0000
+# Generation Time: 2016-04-14 21:02:45 +0000
 # ************************************************************
 
 
@@ -73,10 +73,10 @@ LOCK TABLES `listings` WRITE;
 
 INSERT INTO `listings` (`id`, `user_id`, `created_at`, `paid_until`, `name`, `slug`, `description`, `price`, `img_path`, `category_id`, `active`, `updated_at`)
 VALUES
-	(1,1,'2016-04-05 22:45:09','2016-04-07 00:00:00','Gibson Custom Shop 1959 Les Paul Reissue VOS 2013 in Lemon Burst','59-les-paul-custom-shop','The Gibson Les Paul LPR9 1959 Reissue Les Paul VOS (Vintage Original Specification) is a true joy to behold: Gibson have pulled out all the stops to recreate this Les Paul Standard closer than ever before to the 635 guitars they shipped in 1959. New features for 2013 include period correct Aniline dye finishes, hot hide glue neck joins, historic no-tubing truss rod assembly and Kluson deluxe machine heads. Perhaps the biggest step towards the original tone of the 1959 Les Paul Standard however is the new Custom Bucker which is painfully recreated from an original late 50s PAF (Patent Applied For) Humbucker. Thanks in part to the Bumble Bee tone cap the LPR9 sings beautifully at full volume and when rolled off has a distinct creamy character that cleans up stunningly.',599999,'/images/listings/59-les-paul.jpg',1,1,'2016-04-06 16:36:41'),
-	(9,1,'2016-04-05 22:45:49','2016-04-07 00:00:00','Fender American Vintage 65 Strat in Burgundy Mist Metallic','fender-american-vintage-65-strat-in-burgundy-mist-metallic','Fender American Vintage guitars are built 100% to vintage specifications. Tastefully acknowledging the great history and heritage of Fender throughout the 50s and 60s, the new 2012 American Vintage guitars bring to life classic Fender instruments of the early years of electric guitars in a modern, period-accurate form.',99999,'/images/listings/strat.jpg',1,1,'2016-04-06 16:42:11'),
-	(13,1,'2016-04-06 18:04:26','2016-04-07 00:00:00','Faith Naked Series Venus Electro Acoustic Guitar','faith-naked-series-venus-electro-acoustic-guitar','Faith acoustic',39999,'http://content.andertons.co.uk/2/1/images/catalog/i/xxld_42286-tmpC024.jpg',2,1,'2016-04-06 18:04:26'),
-	(11,1,'2016-04-06 01:57:11','2016-04-07 00:00:00','Gibson SG Standard','gibson-sg-standard','It\'s an SG what more do you need?',99999,'/images/listings/sg.jpg',1,1,'2016-04-06 02:39:13');
+	(1,1,'2016-04-05 22:45:09','2016-04-15 00:00:00','Gibson Custom Shop 1959 Les Paul Reissue VOS 2013 in Lemon Burst','59-les-paul-custom-shop','The Gibson Les Paul LPR9 1959 Reissue Les Paul VOS (Vintage Original Specification) is a true joy to behold: Gibson have pulled out all the stops to recreate this Les Paul Standard closer than ever before to the 635 guitars they shipped in 1959. New features for 2013 include period correct Aniline dye finishes, hot hide glue neck joins, historic no-tubing truss rod assembly and Kluson deluxe machine heads. Perhaps the biggest step towards the original tone of the 1959 Les Paul Standard however is the new Custom Bucker which is painfully recreated from an original late 50s PAF (Patent Applied For) Humbucker. Thanks in part to the Bumble Bee tone cap the LPR9 sings beautifully at full volume and when rolled off has a distinct creamy character that cleans up stunningly.',599999,'/images/listings/59-les-paul.jpg',1,1,'2016-04-14 22:01:51'),
+	(9,1,'2016-04-05 22:45:49','2016-04-15 00:00:00','Fender American Vintage 65 Strat in Burgundy Mist Metallic','fender-american-vintage-65-strat-in-burgundy-mist-metallic','Fender American Vintage guitars are built 100% to vintage specifications. Tastefully acknowledging the great history and heritage of Fender throughout the 50s and 60s, the new 2012 American Vintage guitars bring to life classic Fender instruments of the early years of electric guitars in a modern, period-accurate form.',99999,'/images/listings/strat.jpg',1,1,'2016-04-14 22:02:08'),
+	(13,1,'2016-04-06 18:04:26','2016-04-15 00:00:00','Faith Naked Series Venus Electro Acoustic Guitar','faith-naked-series-venus-electro-acoustic-guitar','Faith acoustic',39999,'http://content.andertons.co.uk/2/1/images/catalog/i/xxld_42286-tmpC024.jpg',2,1,'2016-04-14 22:02:08'),
+	(11,1,'2016-04-06 01:57:11','2016-04-15 00:00:00','Gibson SG Standard','gibson-sg-standard','It\'s an SG what more do you need?',99999,'/images/listings/sg.jpg',1,1,'2016-04-14 22:01:51');
 
 /*!40000 ALTER TABLE `listings` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -97,17 +97,6 @@ CREATE TABLE `orders` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
-LOCK TABLES `orders` WRITE;
-/*!40000 ALTER TABLE `orders` DISABLE KEYS */;
-
-INSERT INTO `orders` (`id`, `listing_id`, `user_id`, `address`, `status`, `created_at`)
-VALUES
-	(14,13,18,'wrawer','processing','2016-04-06 18:06:23'),
-	(12,9,18,'1234','cancelled','2016-04-06 02:39:46'),
-	(13,9,18,'1234','processing','2016-04-06 02:43:56');
-
-/*!40000 ALTER TABLE `orders` ENABLE KEYS */;
-UNLOCK TABLES;
 
 
 # Dump of table users
@@ -134,7 +123,7 @@ LOCK TABLES `users` WRITE;
 
 INSERT INTO `users` (`id`, `username`, `password`, `first_name`, `last_name`, `email`, `credit`, `seller`)
 VALUES
-	(1,'jimmy','$2y$10$eVb1fmzQJF/UE0HcBPYxreS/i7PE5qYKFZdYwT6P.VvnudR1kccgi','Jimmy','Cook','fake@fake.com',66598,0),
+	(1,'jimmy','$2y$10$eVb1fmzQJF/UE0HcBPYxreS/i7PE5qYKFZdYwT6P.VvnudR1kccgi','Jimmy','Cook','fake@fake.com',64798,0),
 	(18,'test','$2y$10$e3PnoR0AvtS.R9tRYvqVu.Fr6d/uyVl1Q25rNKy42IsXAoLKoOAs6','test','test','test@test.com',55713,0),
 	(19,'ruthie','$2y$10$1Kv3o00XLQsOFQcuZkK67eGy8Fm3J7bqFRqNbyssSaBsnj3zDv17e','Ruth','Coles','ruth.hc.coles@gmail.com',9223372036854775807,0);
 
